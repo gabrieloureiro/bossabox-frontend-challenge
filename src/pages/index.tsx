@@ -8,7 +8,7 @@ const Home: React.FC = () => {
         <title>Home</title>
       </Head>
       <main>
-        <h3>InputLabelRequired</h3>
+        <h1>BossaBox Challenge Frontend</h1>
       </main>
     </>
   )
