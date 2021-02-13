@@ -1,9 +1,16 @@
+import React from 'react'
 import Head from 'next/head'
-import styles from '../styles/Home.module.css'
 
-const Home = () => {
+const Home: React.FC = () => {
   return (
-    <h1>Hello World </h1>
+    <>
+      <Head>
+        <title>Home</title>
+      </Head>
+      <main>
+        <h3>InputLabelRequired</h3>
+      </main>
+    </>
   )
 }
 
