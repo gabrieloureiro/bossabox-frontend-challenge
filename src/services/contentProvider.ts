@@ -1,13 +1,28 @@
 const AVAILABLE_ROUTES = [
   {
-    title: 'Home',
-    path: '/home',
-    icon: 'home'
+    title: 'Roadmap',
+    path: '/',
+    icon: 'roadmap'
   },
   {
-    title: 'Buttons',
-    path: '/buttons',
-    icon: 'button'
+    title: 'Stackes',
+    path: '/stackes',
+    icon: 'stackes'
+  },
+  {
+    title: 'Send',
+    path: '/send',
+    icon: 'send'
+  },
+  {
+    title: 'Settings',
+    path: '/settings',
+    icon: 'settings'
+  },
+  {
+    title: 'Help',
+    path: '/help',
+    icon: 'help'
   }
 ]
 

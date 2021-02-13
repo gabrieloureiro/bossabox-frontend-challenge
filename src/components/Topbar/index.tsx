@@ -1,15 +1,25 @@
 import React from 'react'
 
 import { TopbarInterface } from './types'
-import { StyledBar, CollapseTrigger, BossaBoxLogo } from './styles'
 
-const Topbar: React.FC<TopbarInterface> = ({ collapsed, handleCollapsed }) => {
+import { Chevronleft, Menuitem, Logobossabox } from '@/components/Icons'
+
+import { StyledBar, CollapseTrigger, LogoWrapper, Title } from './styles'
+
+const Topbar: React.FC<TopbarInterface> = ({
+  highlightTitle,
+  collapsed,
+  handleCollapsed
+}) => {
   return (
     <StyledBar>
-      <BossaBoxLogo />
+      <LogoWrapper>
+        <Logobossabox />
+      </LogoWrapper>
       <CollapseTrigger onClick={handleCollapsed}>
-        {collapsed ? <p>aberto</p> : <p>fechado</p>}
+        {collapsed ? <Chevronleft /> : <Menuitem />}
       </CollapseTrigger>
+      <Title>{highlightTitle}</Title>
     </StyledBar>
   )
 }

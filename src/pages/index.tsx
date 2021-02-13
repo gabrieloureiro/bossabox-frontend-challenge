@@ -3,9 +3,9 @@ import Layout from '@/components/Layout'
 
 const Home: React.FC = () => {
   return (
-    <Layout title="Home">
+    <Layout title="VUTTR | Very Useful Tools to Remember" highlightTitle="Home">
       <main>
-        <h1>BossaBox Challenge Frontend</h1>
+        <h2>BossaBox Challenge Frontend</h2>
       </main>
     </Layout>
   )

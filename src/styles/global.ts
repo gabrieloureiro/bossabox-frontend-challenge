@@ -35,15 +35,17 @@ export default createGlobalStyle`
   body {
     background: ${props => props.theme.colors.darkWhite};
     font: normal normal normal 20px/26px Source Sans Pro;
+    font-size: 20/26px;
     letter-spacing: 0.4px;
+    transition: font-size 1s ease;
 
-    @media screen and (max-width: 768px) {
-      font: normal normal normal 18px/24px Source Sans Pro;
-    letter-spacing: 0.36px;
+    @media screen and (max-width: 767px) {
+      font-size: 18px/24px;
+      letter-spacing: 0.36px;
     }
 
     @media screen and (max-width: 375px) {
-      font: normal normal normal 16px/22px Source Sans Pro;
+      font-size: 16px/22px;
       letter-spacing: 0.32px;
     }
   }
