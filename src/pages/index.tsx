@@ -1,16 +1,13 @@
 import React from 'react'
-import Head from 'next/head'
+import Layout from '@/components/Layout'
 
 const Home: React.FC = () => {
   return (
-    <>
-      <Head>
-        <title>Home</title>
-      </Head>
+    <Layout title="Home">
       <main>
         <h1>BossaBox Challenge Frontend</h1>
       </main>
-    </>
+    </Layout>
   )
 }
 

@@ -1,11 +1,18 @@
+/* eslint-disable no-tabs */
 import { createGlobalStyle } from 'styled-components'
 
 export default createGlobalStyle`
-  * {
+  *,
+  *::after,
+  *::before {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
     outline:none;
+    backface-visibility: hidden;
+    -webkit-font-smoothing: antialiased;
+    scroll-behavior: smooth !important;
+    transition: color, background-color 0.5s ease-out;
   }
 
   button {
@@ -14,6 +21,15 @@ export default createGlobalStyle`
     &:disabled {
       cursor: not-allowed;
     }
+  }
+
+  ul,
+  ol {
+    list-style: none;
+  }
+
+  a {
+    text-decoration: none;
   }
 
   body {
@@ -64,5 +80,12 @@ export default createGlobalStyle`
   h5 {
     font: normal normal 600 24px/30px Source Sans Pro;
     letter-spacing: 0.48px;
+  }
+
+  body,
+  html,
+  #__next {
+    height: 100%;
+		min-height: -webkit-fill-available;
   }
 `
