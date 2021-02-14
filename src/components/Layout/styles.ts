@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import { ContainerInterface } from './types'
 
 export const Container = styled.div`
-position: relative;
   display: block;
   max-width: 100%;
   min-height: 100%;
@@ -20,7 +19,7 @@ position: relative;
 `
 
 export const FloatChat = styled.div`
-  position: absolute;
+  position: fixed;
   width: 50px;
   height: 50px;
   padding: 14px 12.5px 14.25px 12px;
