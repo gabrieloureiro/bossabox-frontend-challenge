@@ -3,17 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
+    "dev": "npm run svg-to-react && next dev",
+    "build": "npm run svg-to-react && next build",
+    "start": "npm run svg-to-react && next start",
+    "svg-to-react": "svgr --no-prettier -d src/components/Icons public/icons"
   },
   "dependencies": {
+    "@svgr/cli": "^5.5.0",
     "axios": "^0.21.1",
     "next": "10.0.6",
     "next-images": "^1.7.0",
     "react": "next",
     "react-dom": "next",
     "react-reveal": "^1.2.2",
+    "react-svg": "^11.2.3",
     "styled-components": "^5.2.1",
     "swr": "^0.4.2"
   },
@@ -24,7 +27,6 @@
     "@types/styled-components": "^5.1.7",
     "@typescript-eslint/eslint-plugin": "^4.15.0",
     "@typescript-eslint/parser": "^4.15.0",
-    "babel-plugin-inline-react-svg": "^1.1.2",
     "eslint": "^7.20.0",
     "eslint-config-prettier": "^7.2.0",
     "eslint-config-standard": "^16.0.2",

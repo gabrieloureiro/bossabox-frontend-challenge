@@ -1,11 +1,18 @@
+/* eslint-disable no-tabs */
 import { createGlobalStyle } from 'styled-components'
 
 export default createGlobalStyle`
-  * {
+  *,
+  *::after,
+  *::before {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
     outline:none;
+    backface-visibility: hidden;
+    -webkit-font-smoothing: antialiased;
+    scroll-behavior: smooth !important;
+    transition: color, background-color 0.5s ease-out;
   }
 
   button {
@@ -16,18 +23,29 @@ export default createGlobalStyle`
     }
   }
 
+  ul,
+  ol {
+    list-style: none;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
   body {
     background: ${props => props.theme.colors.darkWhite};
     font: normal normal normal 20px/26px Source Sans Pro;
+    font-size: 20/26px;
     letter-spacing: 0.4px;
+    transition: font-size 1s ease;
 
-    @media screen and (max-width: 768px) {
-      font: normal normal normal 18px/24px Source Sans Pro;
-    letter-spacing: 0.36px;
+    @media screen and (max-width: 767px) {
+      font-size: 18px/24px;
+      letter-spacing: 0.36px;
     }
 
     @media screen and (max-width: 375px) {
-      font: normal normal normal 16px/22px Source Sans Pro;
+      font-size: 16px/22px;
       letter-spacing: 0.32px;
     }
   }
@@ -64,5 +82,12 @@ export default createGlobalStyle`
   h5 {
     font: normal normal 600 24px/30px Source Sans Pro;
     letter-spacing: 0.48px;
+  }
+
+  body,
+  html,
+  #__next {
+    height: 100%;
+		min-height: -webkit-fill-available;
   }
 `

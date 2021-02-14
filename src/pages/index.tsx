@@ -1,16 +1,11 @@
 import React from 'react'
-import Head from 'next/head'
+import Layout from '@/components/Layout'
 
 const Home: React.FC = () => {
   return (
-    <>
-      <Head>
-        <title>Home</title>
-      </Head>
-      <main>
-        <h1>BossaBox Challenge Frontend</h1>
-      </main>
-    </>
+    <Layout title="VUTTR | Very Useful Tools to Remember" highlightTitle="Home">
+      <h2>BossaBox Challenge Frontend</h2>
+    </Layout>
   )
 }
 
