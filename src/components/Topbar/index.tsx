@@ -2,9 +2,24 @@ import React from 'react'
 
 import { TopbarInterface } from './types'
 
-import { Chevronleft, Menuitem, Logobossabox } from '@/components/Icons'
+import {
+  Chevronleft,
+  Menuitem,
+  Logobossabox,
+  Chevrondown
+} from '@/components/Icons'
+import Searchbar from '@/components/SearchBar'
 
-import { StyledBar, CollapseTrigger, LogoWrapper, Title } from './styles'
+import {
+  StyledBar,
+  CollapseTrigger,
+  LogoWrapper,
+  Title,
+  UserDropdown,
+  Username,
+  Avatar,
+  AlertNotifications
+} from './styles'
 
 const Topbar: React.FC<TopbarInterface> = ({
   highlightTitle,
@@ -20,6 +35,13 @@ const Topbar: React.FC<TopbarInterface> = ({
         {collapsed ? <Chevronleft /> : <Menuitem />}
       </CollapseTrigger>
       <Title>{highlightTitle}</Title>
+      <Searchbar />
+      <UserDropdown>
+        <Username>Dalos</Username>
+        <Chevrondown />
+      </UserDropdown>
+      <Avatar />
+      <AlertNotifications />
     </StyledBar>
   )
 }

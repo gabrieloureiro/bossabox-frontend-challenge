@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+
 import { SidebarInterface } from './types'
 
 export const StyledSidebar = styled.div`

@@ -4,7 +4,9 @@ import Head from 'next/head'
 import Sidebar from '@/components/Sidebar'
 import Topbar from '@/components/Topbar'
 
-import { Container } from './styles'
+import { Chat } from '@/components/Icons'
+
+import { Container, FloatChat } from './styles'
 import { LayoutInterface } from './types'
 
 const Layout: React.FC<LayoutInterface> = ({
@@ -34,7 +36,12 @@ const Layout: React.FC<LayoutInterface> = ({
         collapsed={collapsed}
         handleCollapsed={handleCollapsed}
       />
-      <Container sideBarCollapsed={collapsed}>{children}</Container>
+      <Container sideBarCollapsed={collapsed}>
+        <main>{children}</main>
+      </Container>
+      <FloatChat>
+        <Chat />
+      </FloatChat>
     </>
   )
 }
