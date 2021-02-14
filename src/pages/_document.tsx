@@ -55,7 +55,7 @@ export default class MyDocument extends Document {
             rel="stylesheet"
           />
 
-          {/* <link rel="icon" href="https://rocketseat.com.br/favicon.ico" /> */}
+          <link rel="icon" href="/logobossabox.ico" />
         </Head>
         <body>
           <Main />
