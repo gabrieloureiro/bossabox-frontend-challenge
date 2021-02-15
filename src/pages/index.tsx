@@ -9,6 +9,7 @@ import api from '@/services/api'
 import { mutate as mutateGlobal } from 'swr'
 
 import { ToolsInterface, formToolsItems } from '@/models/tools'
+import toolsSchema from '@/utils/toolsSchema'
 
 import selectColor from '@/utils/selectColor'
 import getValidationErrors from '@/utils/getValidationErrors'
@@ -50,19 +51,15 @@ const Home: React.FC = () => {
     setOpenAddModal(false)
   }
 
-  const updateTools = async () => {
-    const response = await api.get('tools')
-    return await response.data
-  }
-
   const handleAddTool = useCallback(
     async (tool: ToolsInterface) => {
-      api.post('tools', tool)
-      await updateTools()
-    }, [data, mutate]
+      await api.post('tools', tool)
+      mutateGlobal('tools')
+    },
+    [data, mutate]
   )
 
-  const handleSubmit = useCallback(async (formData: ToolsInterface) => {
+  const handleSubmit = useCallback(async (formData: ToolsInterface, { reset }) => {
     try {
       formRef.current?.setErrors({})
 
@@ -71,11 +68,15 @@ const Home: React.FC = () => {
         title: formData.title,
         description: formData.description,
         link: formData.link,
-        tags: formData.tags.split(',')
+        tags: formData.tags.toString() !== '' ? formData.tags.split(',') : ''
       }
 
-      handleAddTool(editedFormData)
+      await toolsSchema.validate(editedFormData, { abortEarly: false })
+
+      await handleAddTool(editedFormData)
+
       handleCloseAddModal()
+      reset()
     } catch (err) {
       const errors = getValidationErrors(err)
       formRef.current?.setErrors(errors)
@@ -115,7 +116,9 @@ const Home: React.FC = () => {
                       </CardAnchorTitle>
                     </Row>
                   ) : (
-                      <CardTitle>{item.title}</CardTitle>
+                      <Row>
+                        <CardTitle>{item.title}</CardTitle>
+                      </Row>
                     )}
                   <CardDescription>{item.description}</CardDescription>
                   <Row wrap>
