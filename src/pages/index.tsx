@@ -2,17 +2,16 @@
 /* eslint-disable indent */
 /* eslint-disable prettier/prettier */
 import React, { useCallback, useRef, useState } from 'react'
-import { useRouter } from 'next/router'
 import { useFetch } from '@/hooks/useFetch'
 import { v4 as uuid } from 'uuid'
-import api from '@/services/api'
 import { mutate as mutateGlobal } from 'swr'
+import toolsSchema from '@/utils/toolsSchema'
+import api from '@/services/api'
+import getValidationErrors from '@/utils/getValidationErrors'
 
 import { ToolsInterface, formToolsItems } from '@/models/tools'
-import toolsSchema from '@/utils/toolsSchema'
 
 import selectColor from '@/utils/selectColor'
-import getValidationErrors from '@/utils/getValidationErrors'
 
 import Layout from '@/components/Layout'
 import Loader from '@/components/Loader'
@@ -31,24 +30,41 @@ import {
   CardTag,
   ContainerTitle,
   AddButton,
-  Form,
-  CancelButton,
-  ConfirmButton
+  IconsWrapper,
+  EditButton,
+  DeleteButton, Form, CancelButton, ConfirmButton
 } from '@/styles/pages/Home'
 
 const Home: React.FC = () => {
   const formRef = useRef(null)
-  const [openAddModal, setOpenAddModal] = useState(false)
-  const router = useRouter()
-  const { id } = router.query
+  const [openModal, setOpenModal] = useState(false)
+  const [openEditModal, setOpenEditModal] = useState(false)
+  const [currentTool, setCurrentTool] = useState<ToolsInterface>({} as ToolsInterface)
   const { data, mutate } = useFetch<ToolsInterface[]>('tools')
 
-  const handleOpenAddModal = (): void => {
-    setOpenAddModal(true)
+  const handleOpenModal = (): void => {
+    setOpenModal(true)
   }
 
-  const handleCloseAddModal = (): void => {
-    setOpenAddModal(false)
+  const handleCloseModal = (): void => {
+    setOpenModal(false)
+  }
+
+  const handleCloseEditModal = (): void => {
+    setOpenEditModal(false)
+  }
+
+  const handleOpenEditModal = async (id: string) => {
+    const response = await api.get(`tools/${id}`)
+    const editedData = {
+      id: response.data.id,
+      title: response.data.title,
+      description: response.data.description,
+      link: response.data.link,
+      tags: response.data.tags.toString()
+    }
+    setCurrentTool(editedData)
+    setOpenEditModal(true)
   }
 
   const handleAddTool = useCallback(
@@ -59,29 +75,62 @@ const Home: React.FC = () => {
     [data, mutate]
   )
 
-  const handleSubmit = useCallback(async (formData: ToolsInterface, { reset }) => {
-    try {
-      formRef.current?.setErrors({})
+  const handleSubmit = useCallback(
+    async (formData: ToolsInterface, { reset }) => {
+      try {
+        formRef.current?.setErrors({})
 
-      const editedFormData: ToolsInterface = {
-        id: uuid(),
-        title: formData.title,
-        description: formData.description,
-        link: formData.link,
-        tags: formData.tags.toString() !== '' ? formData.tags.split(',') : ''
+        const editedFormData: ToolsInterface = {
+          id: uuid(),
+          title: formData.title,
+          description: formData.description,
+          link: formData.link,
+          tags: formData.tags.toString() !== '' ? formData.tags.split(',') : ''
+        }
+        await toolsSchema.validate(editedFormData, { abortEarly: false })
+
+        await handleAddTool(editedFormData)
+
+        handleCloseModal()
+        reset()
+      } catch (err) {
+        const errors = getValidationErrors(err)
+        formRef.current?.setErrors(errors)
       }
+    },
+    []
+  )
 
-      await toolsSchema.validate(editedFormData, { abortEarly: false })
+  const handleEdit = useCallback(
+    async (formData: ToolsInterface, { reset }) => {
+      try {
+        console.log(1)
+        formRef.current?.setErrors({})
+        console.log(2)
+        const editedFormData: ToolsInterface = {
+          id: currentTool.id,
+          title: formData.title,
+          description: formData.description,
+          link: formData.link,
+          tags: formData.tags.toString() !== '' ? formData.tags.split(',') : ''
+        }
+        console.log(3)
+        console.log(editedFormData)
+        await toolsSchema.validate(editedFormData, { abortEarly: false })
+        console.log(4)
+        await api.put(`tools/${currentTool.id}`, editedFormData)
+        console.log(5)
+        mutateGlobal('tools')
 
-      await handleAddTool(editedFormData)
-
-      handleCloseAddModal()
-      reset()
-    } catch (err) {
-      const errors = getValidationErrors(err)
-      formRef.current?.setErrors(errors)
-    }
-  }, [])
+        handleCloseEditModal()
+        reset()
+      } catch (err) {
+        const errors = getValidationErrors(err)
+        formRef.current?.setErrors(errors)
+      }
+    },
+    []
+  )
 
   if (!data) {
     return <Loader />
@@ -94,7 +143,7 @@ const Home: React.FC = () => {
     >
       <Row wrap align="center" style={{ marginBottom: '24px' }}>
         <ContainerTitle>Very Useful Tools to Remember</ContainerTitle>
-        <AddButton buttonType="primaryNeutral" onClick={handleOpenAddModal}>
+        <AddButton buttonType="primaryNeutral" onClick={handleOpenModal}>
           Add Tool
         </AddButton>
       </Row>
@@ -104,8 +153,8 @@ const Home: React.FC = () => {
             <FullCardListItem key={`${item.id}_${index}`}>
               <Fade delay={`${index}0`}>
                 <FullCard>
-                  {item.link ? (
-                    <Row>
+                  <Row justify="spaceBetween">
+                    {item.link ? (
                       <CardAnchorTitle
                         aria-label={item.title}
                         target="_blank"
@@ -114,12 +163,14 @@ const Home: React.FC = () => {
                       >
                         {item.title}
                       </CardAnchorTitle>
-                    </Row>
-                  ) : (
-                      <Row>
+                    ) : (
                         <CardTitle>{item.title}</CardTitle>
-                      </Row>
-                    )}
+                      )}
+                    <IconsWrapper>
+                      <EditButton onClick={() => handleOpenEditModal(item.id)} />
+                      <DeleteButton />
+                    </IconsWrapper>
+                  </Row>
                   <CardDescription>{item.description}</CardDescription>
                   <Row wrap>
                     {item.tags.map((tag, index) => {
@@ -142,12 +193,8 @@ const Home: React.FC = () => {
           )
         })}
       </FullCardList>
-      {openAddModal ? (
-        <Modal
-          title="Add new tool"
-          open={openAddModal}
-          onClose={handleCloseAddModal}
-        >
+      {openModal ? (
+        <Modal title="Add new tool" open={openModal} onClose={handleCloseModal}>
           <Form ref={formRef} onSubmit={handleSubmit}>
             {formToolsItems.map((item, index) => {
               return (
@@ -160,18 +207,42 @@ const Home: React.FC = () => {
               )
             })}
             <Row wrap align="center" justify="end">
-              <CancelButton
-                buttonType="primaryDanger"
-                onClick={handleCloseAddModal}
-              >
+              <CancelButton buttonType="primaryDanger" onClick={handleCloseModal}>
                 Cancel
-              </CancelButton>
+            </CancelButton>
               <ConfirmButton
                 buttonType="primarySuccess"
                 onClick={() => handleSubmit}
               >
                 Confirm
-              </ConfirmButton>
+            </ConfirmButton>
+            </Row>
+          </Form>
+        </Modal>
+      ) : null}
+      {openEditModal ? (
+        <Modal title="Edit this tool" open={openEditModal} onClose={handleCloseEditModal}>
+          <Form initialData={currentTool} ref={formRef} onSubmit={handleEdit}>
+            {formToolsItems.map((item, index) => {
+              return (
+                <Input
+                  key={`${item.label}_${index}`}
+                  label={item.label}
+                  required
+                  name={item.name}
+                />
+              )
+            })}
+            <Row wrap align="center" justify="end">
+              <CancelButton buttonType="primaryDanger" onClick={handleCloseEditModal}>
+                Cancel
+          </CancelButton>
+              <ConfirmButton
+                buttonType="primarySuccess"
+                onClick={() => handleEdit}
+              >
+                Confirm
+          </ConfirmButton>
             </Row>
           </Form>
         </Modal>

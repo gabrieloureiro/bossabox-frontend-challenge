@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import Button from '@/components/Button'
 import { Col } from '@/components/Col'
 import { Form as StyledForm } from '@unform/web'
+import { Delete, Edit } from '@/components/Icons'
+
 interface TagInterface {
   backgroundColor: string
 }
@@ -21,6 +23,30 @@ export const CancelButton = styled(Button)`
 
 export const ConfirmButton = styled(Button)`
   margin: 0 0 12px 12px;
+`
+
+export const IconsWrapper = styled.div``
+
+export const EditButton = styled(Edit)`
+  fill: ${props => props.theme.colors.lightInk};
+  cursor: pointer;
+
+  &:hover {
+    fill: ${props => props.theme.colors.darkerYellow};
+  }
+`
+
+export const DeleteButton = styled(Delete)`
+  fill: none;
+  stroke-miterlimit: 10;
+  stroke-width: 2px;
+  stroke: ${props => props.theme.colors.lightInk};
+  margin-left: 12px;
+  cursor: pointer;
+
+  &:hover {
+    stroke: ${props => props.theme.colors.darkerRed};
+  }
 `
 
 export const FullCard = styled(Col)`
