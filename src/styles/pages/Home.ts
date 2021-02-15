@@ -1,18 +1,31 @@
 import styled from 'styled-components'
 
+import Button from '@/components/Button'
 import { Col } from '@/components/Col'
-
+import { Form as StyledForm } from '@unform/web'
 interface TagInterface {
   backgroundColor: string
 }
 
-export const FullCardList = styled.ul``
+export const AddButton = styled(Button)`
+  margin-left: auto;
+`
 
-export const FullCardListItem = styled.li``
+export const Form = styled(StyledForm)`
+  display: block;
+`
+
+export const CancelButton = styled(Button)`
+  margin-bottom: 12px;
+`
+
+export const ConfirmButton = styled(Button)`
+  margin: 0 0 12px 12px;
+`
 
 export const FullCard = styled(Col)`
   padding: 24px;
-  height: 180px;
+  min-height: 180px;
   width: 100%;
   margin-bottom: 16px;
   border-radius: 5px;
@@ -22,6 +35,7 @@ export const FullCard = styled(Col)`
   transition: all 0.5s ease;
 
   &:hover {
+    transform: translateX(5px);
     box-shadow: 0px 20px 25px #0000001a;
     border-color: ${props => props.theme.colors.lightInk};
   }
@@ -56,7 +70,13 @@ export const CardDescription = styled.span`
 export const CardTag = styled.span`
   border-radius: 5px;
   padding: 6px 12px;
-  margin-right: 12px;
+  margin: 0 12px 12px 0;
   background: ${(props: TagInterface) => props.backgroundColor};
   color: ${props => props.theme.colors.white};
 `
+
+export const ContainerTitle = styled.h2``
+
+export const FullCardList = styled.ul``
+
+export const FullCardListItem = styled.li``

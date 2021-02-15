@@ -6,10 +6,13 @@
     "dev": "npm run svg-to-react && next dev",
     "build": "npm run svg-to-react && next build",
     "start": "npm run svg-to-react && next start",
-    "svg-to-react": "svgr --no-prettier -d src/components/Icons public/icons"
+    "svg-to-react": "svgr --no-prettier -d src/components/Icons public/icons",
+    "server": "json-server server.json -p 3333"
   },
   "dependencies": {
     "@svgr/cli": "^5.5.0",
+    "@unform/core": "^2.1.5",
+    "@unform/web": "^2.1.5",
     "axios": "^0.21.1",
     "next": "10.0.6",
     "next-images": "^1.7.0",
@@ -18,13 +21,17 @@
     "react-reveal": "^1.2.2",
     "react-svg": "^11.2.3",
     "styled-components": "^5.2.1",
-    "swr": "^0.4.2"
+    "swr": "^0.4.2",
+    "uuid": "^8.3.2",
+    "yup": "^0.32.8"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^10.0.6",
     "@types/node": "^14.14.27",
     "@types/react": "^17.0.2",
     "@types/styled-components": "^5.1.7",
+    "@types/uuid": "^8.3.0",
+    "@types/yup": "^0.29.11",
     "@typescript-eslint/eslint-plugin": "^4.15.0",
     "@typescript-eslint/parser": "^4.15.0",
     "eslint": "^7.20.0",
@@ -35,6 +42,8 @@
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-promise": "^4.3.1",
     "eslint-plugin-react": "^7.22.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "json-server": "^0.16.3",
     "prettier": "^2.2.1",
     "typescript": "^4.1.5"
   }

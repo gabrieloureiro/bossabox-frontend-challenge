@@ -6,22 +6,22 @@ const AVAILABLE_ROUTES = [
   },
   {
     title: 'Stackes',
-    path: '/stackes',
+    path: 'https://www.linkedin.com/in/gabrieloureiro/',
     icon: 'stackes'
   },
   {
     title: 'Send',
-    path: '/send',
+    path: 'https://www.linkedin.com/in/gabrieloureiro/',
     icon: 'send'
   },
   {
     title: 'Settings',
-    path: '/settings',
+    path: 'https://www.linkedin.com/in/gabrieloureiro/',
     icon: 'settings'
   },
   {
     title: 'Help',
-    path: '/help',
+    path: 'https://www.linkedin.com/in/gabrieloureiro/',
     icon: 'help'
   }
 ]

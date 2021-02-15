@@ -1,9 +1,8 @@
-import { ReactNode } from 'react'
+import { HTMLAttributes, ReactNode } from 'react'
 
-export interface ButtonInterface {
+export interface ButtonInterface extends HTMLAttributes<HTMLButtonElement> {
   buttonType?: string
   children: ReactNode
-  disabled?: boolean
 }
 
 export interface HandleType {

@@ -7,11 +7,10 @@ import { StyledButton } from './styles'
 const Button: React.FC<ButtonInterface> = ({
   buttonType,
   children,
-  disabled,
   ...rest
 }: ButtonInterface) => {
   return (
-    <StyledButton buttonType={buttonType} disabled={disabled} {...rest}>
+    <StyledButton buttonType={buttonType} {...rest}>
       {children}
     </StyledButton>
   )

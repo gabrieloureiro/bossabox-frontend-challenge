@@ -48,7 +48,7 @@ export const UserDropdown = styled.div`
   margin: auto 0;
   margin-right: 30px;
   background: transparent;
-  width: 77px;
+  min-width: 77px;
   height: 18px;
   border: 0;
   border-radius: 5px;
