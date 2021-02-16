@@ -1,23 +1,18 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable indent */
 /* eslint-disable prettier/prettier */
-import React, { useCallback, useRef, useState } from 'react'
-import { useRouter } from 'next/router'
-import { useFetch } from '@/hooks/useFetch'
-import { v4 as uuid } from 'uuid'
+import React, { useCallback, useState } from 'react'
+
 import api from '@/services/api'
+import { useFetch } from '@/hooks/useFetch'
 import { mutate as mutateGlobal } from 'swr'
 
-import { ToolsInterface, formToolsItems } from '@/models/tools'
-import toolsSchema from '@/utils/toolsSchema'
+import { ToolsInterface } from '@/models/tools'
 
 import selectColor from '@/utils/selectColor'
-import getValidationErrors from '@/utils/getValidationErrors'
 
 import Layout from '@/components/Layout'
+import ModalTools from '@/components/ModalTools'
 import Loader from '@/components/Loader'
-import Modal from '@/components/Modal'
-import Input from '@/components/Input'
 import { Row } from '@/components/Row'
 import { Fade } from 'react-reveal'
 
@@ -31,56 +26,24 @@ import {
   CardTag,
   ContainerTitle,
   AddButton,
-  Form,
-  CancelButton,
-  ConfirmButton
+  DeleteButton
 } from '@/styles/pages/Home'
 
 const Home: React.FC = () => {
-  const formRef = useRef(null)
-  const [openAddModal, setOpenAddModal] = useState(false)
-  const router = useRouter()
-  const { id } = router.query
-  const { data, mutate } = useFetch<ToolsInterface[]>('tools')
+  const [openModal, setOpenModal] = useState(false)
+  const { data } = useFetch<ToolsInterface[]>('tools')
 
-  const handleOpenAddModal = (): void => {
-    setOpenAddModal(true)
+  const handleOpenModal = (): void => {
+    setOpenModal(true)
   }
 
-  const handleCloseAddModal = (): void => {
-    setOpenAddModal(false)
+  const handleCloseModal = (): void => {
+    setOpenModal(false)
   }
 
-  const handleAddTool = useCallback(
-    async (tool: ToolsInterface) => {
-      await api.post('tools', tool)
-      mutateGlobal('tools')
-    },
-    [data, mutate]
-  )
-
-  const handleSubmit = useCallback(async (formData: ToolsInterface, { reset }) => {
-    try {
-      formRef.current?.setErrors({})
-
-      const editedFormData: ToolsInterface = {
-        id: uuid(),
-        title: formData.title,
-        description: formData.description,
-        link: formData.link,
-        tags: formData.tags.toString() !== '' ? formData.tags.split(',') : ''
-      }
-
-      await toolsSchema.validate(editedFormData, { abortEarly: false })
-
-      await handleAddTool(editedFormData)
-
-      handleCloseAddModal()
-      reset()
-    } catch (err) {
-      const errors = getValidationErrors(err)
-      formRef.current?.setErrors(errors)
-    }
+  const handleDeleteTool = useCallback(async (tool: ToolsInterface) => {
+    await api.delete(`tools/${tool.id}`, { data: tool })
+    mutateGlobal('tools', false)
   }, [])
 
   if (!data) {
@@ -94,7 +57,7 @@ const Home: React.FC = () => {
     >
       <Row wrap align="center" style={{ marginBottom: '24px' }}>
         <ContainerTitle>Very Useful Tools to Remember</ContainerTitle>
-        <AddButton buttonType="primaryNeutral" onClick={handleOpenAddModal}>
+        <AddButton buttonType="primaryNeutral" onClick={handleOpenModal}>
           Add Tool
         </AddButton>
       </Row>
@@ -104,8 +67,8 @@ const Home: React.FC = () => {
             <FullCardListItem key={`${item.id}_${index}`}>
               <Fade delay={`${index}0`}>
                 <FullCard>
-                  {item.link ? (
-                    <Row>
+                  <Row justify="spaceBetween">
+                    {item.link ? (
                       <CardAnchorTitle
                         aria-label={item.title}
                         target="_blank"
@@ -114,12 +77,11 @@ const Home: React.FC = () => {
                       >
                         {item.title}
                       </CardAnchorTitle>
-                    </Row>
-                  ) : (
-                      <Row>
+                    ) : (
                         <CardTitle>{item.title}</CardTitle>
-                      </Row>
-                    )}
+                      )}
+                    <DeleteButton onClick={() => handleDeleteTool(item)} />
+                  </Row>
                   <CardDescription>{item.description}</CardDescription>
                   <Row wrap>
                     {item.tags.map((tag, index) => {
@@ -142,39 +104,12 @@ const Home: React.FC = () => {
           )
         })}
       </FullCardList>
-      {openAddModal ? (
-        <Modal
-          title="Add new tool"
-          open={openAddModal}
-          onClose={handleCloseAddModal}
-        >
-          <Form ref={formRef} onSubmit={handleSubmit}>
-            {formToolsItems.map((item, index) => {
-              return (
-                <Input
-                  key={`${item.label}_${index}`}
-                  label={item.label}
-                  required
-                  name={item.name}
-                />
-              )
-            })}
-            <Row wrap align="center" justify="end">
-              <CancelButton
-                buttonType="primaryDanger"
-                onClick={handleCloseAddModal}
-              >
-                Cancel
-              </CancelButton>
-              <ConfirmButton
-                buttonType="primarySuccess"
-                onClick={() => handleSubmit}
-              >
-                Confirm
-              </ConfirmButton>
-            </Row>
-          </Form>
-        </Modal>
+      {openModal ? (
+        <ModalTools
+          title="Add a tool"
+          open={openModal}
+          onClose={handleCloseModal}
+        />
       ) : null}
     </Layout>
   )
