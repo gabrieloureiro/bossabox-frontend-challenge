@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 import Button from '@/components/Button'
 import { Col } from '@/components/Col'
-import { Form as StyledForm } from '@unform/web'
+
 import { Delete, Edit } from '@/components/Icons'
 
 interface TagInterface {
@@ -11,18 +11,6 @@ interface TagInterface {
 
 export const AddButton = styled(Button)`
   margin-left: auto;
-`
-
-export const Form = styled(StyledForm)`
-  display: block;
-`
-
-export const CancelButton = styled(Button)`
-  margin-bottom: 12px;
-`
-
-export const ConfirmButton = styled(Button)`
-  margin: 0 0 12px 12px;
 `
 
 export const IconsWrapper = styled.div``

@@ -1,22 +1,22 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable indent */
 /* eslint-disable prettier/prettier */
-import React, { useCallback, useRef, useState } from 'react'
-import { useFetch } from '@/hooks/useFetch'
-import { v4 as uuid } from 'uuid'
-import { mutate as mutateGlobal } from 'swr'
-import toolsSchema from '@/utils/toolsSchema'
-import api from '@/services/api'
-import getValidationErrors from '@/utils/getValidationErrors'
+import React, { useCallback, useEffect, useState } from 'react'
 
-import { ToolsInterface, formToolsItems } from '@/models/tools'
+import api from '@/services/api'
+import { useFetch } from '@/hooks/useFetch'
+
+import { useSelector, useDispatch } from 'react-redux'
+import { readTools } from '@/store/modules/tools/actions'
+
+import { ToolsInterface } from '@/models/tools'
+import { StateInterface } from '@/store'
 
 import selectColor from '@/utils/selectColor'
 
 import Layout from '@/components/Layout'
+import ModalTools from '@/components/ModalTools'
 import Loader from '@/components/Loader'
-import Modal from '@/components/Modal'
-import Input from '@/components/Input'
 import { Row } from '@/components/Row'
 import { Fade } from 'react-reveal'
 
@@ -32,15 +32,27 @@ import {
   AddButton,
   IconsWrapper,
   EditButton,
-  DeleteButton, Form, CancelButton, ConfirmButton
+  DeleteButton
 } from '@/styles/pages/Home'
+import { getCurrentTool } from '@/store/modules/currentTool/actions'
 
 const Home: React.FC = () => {
-  const formRef = useRef(null)
+  const dispatch = useDispatch()
   const [openModal, setOpenModal] = useState(false)
   const [openEditModal, setOpenEditModal] = useState(false)
-  const [currentTool, setCurrentTool] = useState<ToolsInterface>({} as ToolsInterface)
   const { data, mutate } = useFetch<ToolsInterface[]>('tools')
+  const allTools = useSelector<StateInterface, ToolsInterface[]>(
+    state => state.tools
+  )
+  const currentTool = useSelector<StateInterface, ToolsInterface>(
+    state => state.currentTool
+  )
+
+  useEffect(() => {
+    if (data) {
+      dispatch(readTools(data))
+    }
+  }, [data, dispatch])
 
   const handleOpenModal = (): void => {
     setOpenModal(true)
@@ -54,83 +66,17 @@ const Home: React.FC = () => {
     setOpenEditModal(false)
   }
 
-  const handleOpenEditModal = async (id: string) => {
-    const response = await api.get(`tools/${id}`)
+  const handleOpenEditModal = useCallback(async (tool: ToolsInterface) => {
+    dispatch(getCurrentTool(tool))
     const editedData = {
-      id: response.data.id,
-      title: response.data.title,
-      description: response.data.description,
-      link: response.data.link,
-      tags: response.data.tags.toString()
+      id: currentTool.id,
+      title: currentTool.title,
+      description: currentTool.description,
+      link: currentTool.link,
+      tags: currentTool.tags?.toString()
     }
-    setCurrentTool(editedData)
     setOpenEditModal(true)
-  }
-
-  const handleAddTool = useCallback(
-    async (tool: ToolsInterface) => {
-      await api.post('tools', tool)
-      mutateGlobal('tools')
-    },
-    [data, mutate]
-  )
-
-  const handleSubmit = useCallback(
-    async (formData: ToolsInterface, { reset }) => {
-      try {
-        formRef.current?.setErrors({})
-
-        const editedFormData: ToolsInterface = {
-          id: uuid(),
-          title: formData.title,
-          description: formData.description,
-          link: formData.link,
-          tags: formData.tags.toString() !== '' ? formData.tags.split(',') : ''
-        }
-        await toolsSchema.validate(editedFormData, { abortEarly: false })
-
-        await handleAddTool(editedFormData)
-
-        handleCloseModal()
-        reset()
-      } catch (err) {
-        const errors = getValidationErrors(err)
-        formRef.current?.setErrors(errors)
-      }
-    },
-    []
-  )
-
-  const handleEdit = useCallback(
-    async (formData: ToolsInterface, { reset }) => {
-      try {
-        console.log(1)
-        formRef.current?.setErrors({})
-        console.log(2)
-        const editedFormData: ToolsInterface = {
-          id: currentTool.id,
-          title: formData.title,
-          description: formData.description,
-          link: formData.link,
-          tags: formData.tags.toString() !== '' ? formData.tags.split(',') : ''
-        }
-        console.log(3)
-        console.log(editedFormData)
-        await toolsSchema.validate(editedFormData, { abortEarly: false })
-        console.log(4)
-        await api.put(`tools/${currentTool.id}`, editedFormData)
-        console.log(5)
-        mutateGlobal('tools')
-
-        handleCloseEditModal()
-        reset()
-      } catch (err) {
-        const errors = getValidationErrors(err)
-        formRef.current?.setErrors(errors)
-      }
-    },
-    []
-  )
+  }, [])
 
   if (!data) {
     return <Loader />
@@ -167,7 +113,7 @@ const Home: React.FC = () => {
                         <CardTitle>{item.title}</CardTitle>
                       )}
                     <IconsWrapper>
-                      <EditButton onClick={() => handleOpenEditModal(item.id)} />
+                      <EditButton onClick={() => handleOpenEditModal(item)} />
                       <DeleteButton />
                     </IconsWrapper>
                   </Row>
@@ -194,58 +140,18 @@ const Home: React.FC = () => {
         })}
       </FullCardList>
       {openModal ? (
-        <Modal title="Add new tool" open={openModal} onClose={handleCloseModal}>
-          <Form ref={formRef} onSubmit={handleSubmit}>
-            {formToolsItems.map((item, index) => {
-              return (
-                <Input
-                  key={`${item.label}_${index}`}
-                  label={item.label}
-                  required
-                  name={item.name}
-                />
-              )
-            })}
-            <Row wrap align="center" justify="end">
-              <CancelButton buttonType="primaryDanger" onClick={handleCloseModal}>
-                Cancel
-            </CancelButton>
-              <ConfirmButton
-                buttonType="primarySuccess"
-                onClick={() => handleSubmit}
-              >
-                Confirm
-            </ConfirmButton>
-            </Row>
-          </Form>
-        </Modal>
+        <ModalTools
+          title="Add a tool"
+          open={openModal}
+          onClose={handleCloseModal}
+        />
       ) : null}
       {openEditModal ? (
-        <Modal title="Edit this tool" open={openEditModal} onClose={handleCloseEditModal}>
-          <Form initialData={currentTool} ref={formRef} onSubmit={handleEdit}>
-            {formToolsItems.map((item, index) => {
-              return (
-                <Input
-                  key={`${item.label}_${index}`}
-                  label={item.label}
-                  required
-                  name={item.name}
-                />
-              )
-            })}
-            <Row wrap align="center" justify="end">
-              <CancelButton buttonType="primaryDanger" onClick={handleCloseEditModal}>
-                Cancel
-          </CancelButton>
-              <ConfirmButton
-                buttonType="primarySuccess"
-                onClick={() => handleEdit}
-              >
-                Confirm
-          </ConfirmButton>
-            </Row>
-          </Form>
-        </Modal>
+        <ModalTools
+          title="Edit this tool"
+          open={openEditModal}
+          onClose={handleCloseEditModal}
+        />
       ) : null}
     </Layout>
   )
