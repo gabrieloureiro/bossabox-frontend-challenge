@@ -3,7 +3,6 @@
 /* eslint-disable prettier/prettier */
 import React, { useCallback, useEffect, useState } from 'react'
 
-import api from '@/services/api'
 import { useFetch } from '@/hooks/useFetch'
 
 import { useSelector, useDispatch } from 'react-redux'
@@ -40,10 +39,7 @@ const Home: React.FC = () => {
   const dispatch = useDispatch()
   const [openModal, setOpenModal] = useState(false)
   const [openEditModal, setOpenEditModal] = useState(false)
-  const { data, mutate } = useFetch<ToolsInterface[]>('tools')
-  const allTools = useSelector<StateInterface, ToolsInterface[]>(
-    state => state.tools
-  )
+  const { data } = useFetch<ToolsInterface[]>('tools')
   const currentTool = useSelector<StateInterface, ToolsInterface>(
     state => state.currentTool
   )
@@ -68,15 +64,8 @@ const Home: React.FC = () => {
 
   const handleOpenEditModal = useCallback(async (tool: ToolsInterface) => {
     dispatch(getCurrentTool(tool))
-    const editedData = {
-      id: currentTool.id,
-      title: currentTool.title,
-      description: currentTool.description,
-      link: currentTool.link,
-      tags: currentTool.tags?.toString()
-    }
     setOpenEditModal(true)
-  }, [])
+  }, [dispatch])
 
   if (!data) {
     return <Loader />
@@ -148,6 +137,7 @@ const Home: React.FC = () => {
       ) : null}
       {openEditModal ? (
         <ModalTools
+          isUpdate
           title="Edit this tool"
           initialData={currentTool}
           open={openEditModal}

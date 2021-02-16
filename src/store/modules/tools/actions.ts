@@ -14,3 +14,10 @@ export const readTools = (tools: ToolsInterface[]) => {
     payload: tools
   }
 }
+
+export const updateTool = (tool: ToolsInterface) => {
+  return {
+    type: 'UPDATE_TOOL',
+    payload: tool
+  }
+}

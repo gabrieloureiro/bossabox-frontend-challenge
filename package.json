@@ -17,7 +17,6 @@
     "axios": "^0.21.1",
     "immer": "^8.0.1",
     "next": "10.0.6",
-    "next-images": "^1.7.0",
     "react": "next",
     "react-dom": "next",
     "react-redux": "^7.2.2",

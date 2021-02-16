@@ -23,6 +23,16 @@ const tools = (state = [], action) => {
         return tools
       }
 
+      case 'UPDATE_TOOL': {
+        const tool = action.payload
+
+        draft.push(tool)
+
+        api.put('tools', tool)
+
+        break
+      }
+
       default: {
         return state
       }
