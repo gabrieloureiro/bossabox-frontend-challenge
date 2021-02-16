@@ -3,13 +3,11 @@
 /* eslint-disable prettier/prettier */
 import React, { useCallback, useEffect, useState } from 'react'
 
+import api from '@/services/api'
 import { useFetch } from '@/hooks/useFetch'
-
-import { useSelector, useDispatch } from 'react-redux'
-import { readTools } from '@/store/modules/tools/actions'
+import { mutate as mutateGlobal } from 'swr'
 
 import { ToolsInterface } from '@/models/tools'
-import { StateInterface } from '@/store'
 
 import selectColor from '@/utils/selectColor'
 
@@ -29,26 +27,12 @@ import {
   CardTag,
   ContainerTitle,
   AddButton,
-  IconsWrapper,
-  EditButton,
   DeleteButton
 } from '@/styles/pages/Home'
-import { getCurrentTool } from '@/store/modules/currentTool/actions'
 
 const Home: React.FC = () => {
-  const dispatch = useDispatch()
   const [openModal, setOpenModal] = useState(false)
-  const [openEditModal, setOpenEditModal] = useState(false)
   const { data } = useFetch<ToolsInterface[]>('tools')
-  const currentTool = useSelector<StateInterface, ToolsInterface>(
-    state => state.currentTool
-  )
-
-  useEffect(() => {
-    if (data) {
-      dispatch(readTools(data))
-    }
-  }, [data, dispatch])
 
   const handleOpenModal = (): void => {
     setOpenModal(true)
@@ -58,14 +42,10 @@ const Home: React.FC = () => {
     setOpenModal(false)
   }
 
-  const handleCloseEditModal = (): void => {
-    setOpenEditModal(false)
-  }
-
-  const handleOpenEditModal = useCallback(async (tool: ToolsInterface) => {
-    dispatch(getCurrentTool(tool))
-    setOpenEditModal(true)
-  }, [dispatch])
+  const handleDeleteTool = useCallback(async (tool: ToolsInterface) => {
+    await api.delete(`tools/${tool.id}`, { data: tool })
+    mutateGlobal('tools', false)
+  }, [])
 
   if (!data) {
     return <Loader />
@@ -101,10 +81,7 @@ const Home: React.FC = () => {
                     ) : (
                         <CardTitle>{item.title}</CardTitle>
                       )}
-                    <IconsWrapper>
-                      <EditButton onClick={() => handleOpenEditModal(item)} />
-                      <DeleteButton />
-                    </IconsWrapper>
+                    <DeleteButton onClick={() => handleDeleteTool(item)} />
                   </Row>
                   <CardDescription>{item.description}</CardDescription>
                   <Row wrap>
@@ -133,15 +110,6 @@ const Home: React.FC = () => {
           title="Add a tool"
           open={openModal}
           onClose={handleCloseModal}
-        />
-      ) : null}
-      {openEditModal ? (
-        <ModalTools
-          isUpdate
-          title="Edit this tool"
-          initialData={currentTool}
-          open={openEditModal}
-          onClose={handleCloseEditModal}
         />
       ) : null}
     </Layout>

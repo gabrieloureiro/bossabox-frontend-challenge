@@ -5,8 +5,6 @@ import { useFetch } from '@/hooks/useFetch'
 import { v4 as uuid } from 'uuid'
 import { mutate as mutateGlobal } from 'swr'
 
-import { useDispatch } from 'react-redux'
-
 import getValidationErrors from '@/utils/getValidationErrors'
 import toolsSchema from '@/utils/toolsSchema'
 import { formToolsItems, ToolsInterface } from '@/models/tools'
@@ -20,28 +18,17 @@ import { Form, CancelButton, ConfirmButton } from './styles'
 const ModalTools: React.FC<ModalToolsInterface> = ({
   title,
   onClose,
-  open,
-  isUpdate,
-  initialData
+  open
 }) => {
   const formRef = useRef(null)
-  const dispatch = useDispatch()
   const { data } = useFetch<ToolsInterface[]>('tools')
 
   const handleAddTool = useCallback(
     async (tool: ToolsInterface) => {
       await api.post('tools', tool)
-      mutateGlobal('tools')
+      mutateGlobal('tools', false)
     },
-    [data, dispatch]
-  )
-
-  const handleEditTool = useCallback(
-    async (tool: ToolsInterface) => {
-      await api.put(`tools/${tool.id}`, tool)
-      mutateGlobal('tools')
-    },
-    [data, dispatch]
+    [data]
   )
 
   const handleSubmit = useCallback(
@@ -58,9 +45,7 @@ const ModalTools: React.FC<ModalToolsInterface> = ({
         }
         await toolsSchema.validate(editedFormData, { abortEarly: false })
 
-        !isUpdate
-          ? await handleAddTool(editedFormData)
-          : await handleEditTool(editedFormData)
+        await handleAddTool(editedFormData)
 
         onClose()
         reset()
@@ -74,11 +59,7 @@ const ModalTools: React.FC<ModalToolsInterface> = ({
 
   return (
     <Modal title={title} open={open} onClose={onClose}>
-      <Form
-        initialData={initialData || {}}
-        ref={formRef}
-        onSubmit={handleSubmit}
-      >
+      <Form ref={formRef} onSubmit={handleSubmit}>
         {formToolsItems.map((item, index) => {
           return (
             <Input
