@@ -13,8 +13,6 @@ export const AddButton = styled(Button)`
   margin-left: auto;
 `
 
-export const IconsWrapper = styled.div``
-
 export const EditButton = styled(Edit)`
   fill: ${props => props.theme.colors.lightInk};
   cursor: pointer;
@@ -29,7 +27,6 @@ export const DeleteButton = styled(Delete)`
   stroke-miterlimit: 10;
   stroke-width: 2px;
   stroke: ${props => props.theme.colors.lightInk};
-  margin-left: 12px;
   cursor: pointer;
 
   &:hover {

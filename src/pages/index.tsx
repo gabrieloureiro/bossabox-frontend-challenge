@@ -1,7 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable indent */
 /* eslint-disable prettier/prettier */
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 
 import api from '@/services/api'
 import { useFetch } from '@/hooks/useFetch'
