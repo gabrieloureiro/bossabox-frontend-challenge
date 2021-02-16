@@ -149,6 +149,7 @@ const Home: React.FC = () => {
       {openEditModal ? (
         <ModalTools
           title="Edit this tool"
+          initialData={currentTool}
           open={openEditModal}
           onClose={handleCloseEditModal}
         />

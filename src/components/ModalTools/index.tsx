@@ -22,14 +22,13 @@ import { StateInterface } from '@/store'
 const ModalTools: React.FC<ModalToolsInterface> = ({
   title,
   onClose,
-  open
+  open,
+  initialData
 }) => {
   const formRef = useRef(null)
   const dispatch = useDispatch()
   const { data } = useFetch<ToolsInterface[]>('tools')
-  const currentTool = useSelector<StateInterface, ToolsInterface>(
-    state => state.currentTool
-  )
+
   const handleAddTool = useCallback(
     async (tool: ToolsInterface) => {
       await api.post('tools', tool)
@@ -66,7 +65,11 @@ const ModalTools: React.FC<ModalToolsInterface> = ({
 
   return (
     <Modal title={title} open={open} onClose={onClose}>
-      <Form initialData={currentTool} ref={formRef} onSubmit={handleSubmit}>
+      <Form
+        initialData={initialData || {}}
+        ref={formRef}
+        onSubmit={handleSubmit}
+      >
         {formToolsItems.map((item, index) => {
           return (
             <Input
