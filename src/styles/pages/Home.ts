@@ -11,6 +11,7 @@ interface TagInterface {
 
 export const AddButton = styled(Button)`
   margin-left: auto;
+  margin-bottom: 24px;
 `
 
 export const EditButton = styled(Edit)`
@@ -86,7 +87,9 @@ export const CardTag = styled.span`
   color: ${props => props.theme.colors.white};
 `
 
-export const ContainerTitle = styled.h2``
+export const ContainerTitle = styled.h2`
+  margin-bottom: 24px;
+`
 
 export const FullCardList = styled.ul``
 

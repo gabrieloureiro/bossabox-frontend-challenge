@@ -55,7 +55,7 @@ const Home: React.FC = () => {
       title="VUTTR | Very Useful Tools to Remember"
       highlightTitle="Tools"
     >
-      <Row wrap align="center" style={{ marginBottom: '24px' }}>
+      <Row wrap align="center">
         <ContainerTitle>Very Useful Tools to Remember</ContainerTitle>
         <AddButton buttonType="primaryNeutral" onClick={handleOpenModal}>
           Add Tool

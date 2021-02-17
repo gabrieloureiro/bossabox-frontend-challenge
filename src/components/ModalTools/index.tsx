@@ -41,7 +41,10 @@ const ModalTools: React.FC<ModalToolsInterface> = ({
           title: formData.title,
           description: formData.description,
           link: formData.link,
-          tags: formData.tags.toString() !== '' ? formData.tags.split(',') : ''
+          tags:
+            formData.tags.toString() !== ''
+              ? formData.tags.toString().split(',')
+              : []
         }
         await toolsSchema.validate(editedFormData, { abortEarly: false })
 

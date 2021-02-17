@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
 
 import Sidebar from '@/components/Sidebar'
@@ -15,6 +15,7 @@ const Layout: React.FC<LayoutInterface> = ({
   children
 }) => {
   const [collapsed, setCollapsed] = useState(true)
+  const [width, setWidth] = useState(window.innerWidth)
 
   const handleCollapsed = () => {
     if (collapsed) {
@@ -24,6 +25,34 @@ const Layout: React.FC<LayoutInterface> = ({
     setCollapsed(true)
     return collapsed
   }
+
+  const handleWindowSize = () => {
+    if (typeof window.innerWidth === 'number') {
+      setWidth(window.innerWidth)
+    } else {
+      if (document.documentElement && document.documentElement.clientWidth) {
+        setWidth(document.documentElement.clientWidth)
+      } else {
+        if (document.body && document.body.clientWidth) {
+          setWidth(document.body.clientWidth)
+        }
+      }
+    }
+  }
+
+  useEffect(() => {
+    if (width <= 767) {
+      setCollapsed(false)
+    } else if (width >= 768) {
+      setCollapsed(true)
+    }
+  }, [width])
+
+  useEffect(() => {
+    handleWindowSize()
+  }, [])
+
+  window.addEventListener('resize', handleWindowSize)
 
   return (
     <>

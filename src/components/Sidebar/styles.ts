@@ -16,6 +16,10 @@ export const StyledSidebar = styled.div`
   transition: all 0.5s ease-out;
   transform: ${(props: SidebarInterface) =>
     props.collapsed ? 'translateX(-100px)' : 'translateX(0px)'};
+
+  @media screen and (max-height: 531px) {
+    overflow-y: auto;
+  }
 `
 export const Navigation = styled.nav``
 
@@ -42,6 +46,13 @@ export const NavigationItem = styled.li`
 
   &:hover {
     transform: translateY(-3px);
+  }
+
+  @media screen and (max-height: 531px) {
+    &:nth-last-child(-n + 2),
+    &:last-child {
+      position: unset;
+    }
   }
 `
 
