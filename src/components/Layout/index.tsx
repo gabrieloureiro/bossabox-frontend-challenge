@@ -11,6 +11,7 @@ import { LayoutInterface } from './types'
 
 const Layout: React.FC<LayoutInterface> = ({
   title,
+  description,
   highlightTitle,
   children
 }) => {
@@ -58,6 +59,7 @@ const Layout: React.FC<LayoutInterface> = ({
     <>
       <Head>
         <title>{title}</title>
+        <meta name="description" content={description}></meta>
       </Head>
       <Sidebar collapsed={collapsed} />
       <Topbar

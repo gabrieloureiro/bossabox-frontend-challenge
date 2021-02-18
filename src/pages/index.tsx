@@ -54,6 +54,7 @@ const Home: React.FC = () => {
     <Layout
       title="VUTTR | Very Useful Tools to Remember"
       highlightTitle="Tools"
+      description="Get to know the best and most useful tools to development"
     >
       <Row wrap align="center">
         <ContainerTitle>Very Useful Tools to Remember</ContainerTitle>
@@ -89,7 +90,7 @@ const Home: React.FC = () => {
                         <CardTag
                           key={`${tag}_${index}`}
                           backgroundColor={`${selectColor(
-                            Math.floor(Math.random() * 999),
+                            Math.floor(Math.random() * 50),
                             10
                           )}`}
                         >
