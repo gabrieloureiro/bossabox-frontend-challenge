@@ -51,19 +51,6 @@
         "wow",
         "such"
       ]
-    },
-    {
-      "id": "ec01d299-a578-4713-976b-841e07b5b928",
-      "title": "React Reveal",
-      "description": "A react library to animate your components",
-      "link": "https://www.react-reveal.com/examples/specials/headshake/",
-      "tags": [
-        "react",
-        "react reveal",
-        "animation",
-        "css",
-        "nodejs"
-      ]
     }
   ]
 }

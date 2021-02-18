@@ -2,7 +2,6 @@ import React, { useCallback, useRef } from 'react'
 
 import api from '@/services/api'
 import { useFetch } from '@/hooks/useFetch'
-import { v4 as uuid } from 'uuid'
 import { mutate as mutateGlobal } from 'swr'
 
 import getValidationErrors from '@/utils/getValidationErrors'
@@ -37,7 +36,6 @@ const ModalTools: React.FC<ModalToolsInterface> = ({
         formRef.current?.setErrors({})
 
         const editedFormData: ToolsInterface = {
-          id: uuid(),
           title: formData.title,
           description: formData.description,
           link: formData.link,

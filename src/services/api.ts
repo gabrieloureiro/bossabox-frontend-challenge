@@ -1,9 +1,7 @@
 import axios from 'axios'
 
 const api = axios.create({
-  baseURL: !process.env.NODE_ENV
-    ? 'http://localhost:3333/'
-    : 'https://my-json-server.typicode.com/gabrieloureiro/fake-api-bossabox/tools',
+  baseURL: 'http://localhost:3333/',
   responseType: 'json',
   headers: { 'content-type': 'application/json' }
 })

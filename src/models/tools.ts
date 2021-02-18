@@ -1,5 +1,5 @@
 export interface ToolsInterface {
-  id: string
+  id?: string
   title: string
   link: string
   description: string
