@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "nextDev": "npm run svg-to-react && next dev",
-    "dev": "concurrently --kill-others \"npm run nextDev\" \"npm run server\"",
-    "start": "npm run svg-to-react && next build && next start",
+    "dev": "npm run svg-to-react && next dev",
+    "dev:server": "concurrently --kill-others \"npm run dev\" \"npm run server\"",
     "build": "npm run svg-to-react && next build",
+    "start": "npm run svg-to-react && next build && next start",
     "svg-to-react": "svgr --no-prettier -d src/components/Icons public/icons",
     "server": "json-server server.json -p 3333"
   },
