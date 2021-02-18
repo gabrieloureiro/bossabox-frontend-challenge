@@ -90,7 +90,7 @@ const Home: React.FC = () => {
                         <CardTag
                           key={`${tag}_${index}`}
                           backgroundColor={`${selectColor(
-                            Math.floor(Math.random() * 50),
+                            Math.floor(Math.random() * 7),
                             10
                           )}`}
                         >
