@@ -1,10 +1,11 @@
 /* eslint-disable indent */
 /* eslint-disable prettier/prettier */
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 
 import api from '@/services/api'
 import { useFetch } from '@/hooks/useFetch'
 import { mutate as mutateGlobal } from 'swr'
+import { useSelector } from 'react-redux'
 
 import { ToolsInterface } from '@/models/tools'
 
@@ -28,10 +29,12 @@ import {
   AddButton,
   DeleteButton
 } from '@/styles/pages/Home'
+import { GlobalStateInterface } from '@/store/modules/rootReducer'
 
 const Home: React.FC = () => {
   const [openModal, setOpenModal] = useState(false)
-  const { data } = useFetch<ToolsInterface[]>('tools', 'Notion')
+  const searchValue = useSelector<GlobalStateInterface, string>(state => state.search)
+  const { data } = useFetch<ToolsInterface[]>('tools', searchValue)
 
   const handleOpenModal = (): void => {
     setOpenModal(true)

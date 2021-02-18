@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
 
+import { useDispatch } from 'react-redux'
+
 import Sidebar from '@/components/Sidebar'
 import Topbar from '@/components/Topbar'
 import Container from '@/components/Container'
@@ -9,6 +11,7 @@ import { Chat } from '@/components/Icons'
 import { FloatChat } from './styles'
 
 import { LayoutInterface } from './types'
+import { getSearchValue } from '@/store/modules/search/actions'
 
 const Layout: React.FC<LayoutInterface> = ({
   title,
@@ -17,6 +20,7 @@ const Layout: React.FC<LayoutInterface> = ({
   children
 }) => {
   const [collapsed, setCollapsed] = useState(true)
+  const dispatch = useDispatch()
   const [searchableTool, setSearchableTool] = useState('')
   const [width, setWidth] = useState(window.innerWidth)
 
@@ -42,6 +46,10 @@ const Layout: React.FC<LayoutInterface> = ({
       }
     }
   }
+
+  useEffect(() => {
+    dispatch(getSearchValue(searchableTool))
+  }, [dispatch])
 
   useEffect(() => {
     if (width <= 767) {
