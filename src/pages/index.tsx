@@ -31,7 +31,7 @@ import {
 
 const Home: React.FC = () => {
   const [openModal, setOpenModal] = useState(false)
-  const { data } = useFetch<ToolsInterface[]>('tools')
+  const { data } = useFetch<ToolsInterface[]>('tools', 'Notion')
 
   const handleOpenModal = (): void => {
     setOpenModal(true)
@@ -90,7 +90,7 @@ const Home: React.FC = () => {
                         <CardTag
                           key={`${tag}_${index}`}
                           backgroundColor={`${selectColor(
-                            Math.floor(Math.random() * 7),
+                            Math.floor(Math.random() * 999),
                             10
                           )}`}
                         >

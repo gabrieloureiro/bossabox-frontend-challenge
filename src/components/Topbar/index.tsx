@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { TopbarInterface } from './types'
 
@@ -24,6 +24,9 @@ import {
 const Topbar: React.FC<TopbarInterface> = ({
   highlightTitle,
   collapsed,
+  value,
+  defaultValue,
+  onChange,
   handleCollapsed
 }) => {
   return (
@@ -35,7 +38,11 @@ const Topbar: React.FC<TopbarInterface> = ({
         {collapsed ? <Chevronleft /> : <Menuitem />}
       </CollapseTrigger>
       <Title>{highlightTitle}</Title>
-      <Searchbar />
+      <Searchbar
+        value={value}
+        defaultValue={defaultValue}
+        onChange={onChange}
+      />
       <UserDropdown>
         <Username>Dalos</Username>
         <Chevrondown />

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://bossabox-frontend-challenge.gabrieloureiro.vercel.app/sitemap.xml
+Sitemap: https://bossabox-frontend-challenge.vercel.app/sitemap.xml

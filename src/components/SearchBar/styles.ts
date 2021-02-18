@@ -32,6 +32,11 @@ export const Wrapper = styled.div`
   margin-left: auto;
   margin-right: 45.91px;
 
+  &:hover,
+  &:focus {
+    background: ${props => props.theme.colors.darkestWhite};
+  }
+
   svg {
     margin-right: 10px;
   }

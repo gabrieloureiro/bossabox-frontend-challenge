@@ -3,10 +3,11 @@ import Head from 'next/head'
 
 import Sidebar from '@/components/Sidebar'
 import Topbar from '@/components/Topbar'
-
+import Container from '@/components/Container'
 import { Chat } from '@/components/Icons'
 
-import { Container, FloatChat } from './styles'
+import { FloatChat } from './styles'
+
 import { LayoutInterface } from './types'
 
 const Layout: React.FC<LayoutInterface> = ({
@@ -16,6 +17,7 @@ const Layout: React.FC<LayoutInterface> = ({
   children
 }) => {
   const [collapsed, setCollapsed] = useState(true)
+  const [searchableTool, setSearchableTool] = useState('')
   const [width, setWidth] = useState(window.innerWidth)
 
   const handleCollapsed = () => {
@@ -44,7 +46,7 @@ const Layout: React.FC<LayoutInterface> = ({
   useEffect(() => {
     if (width <= 767) {
       setCollapsed(false)
-    } else if (width >= 768) {
+    } else {
       setCollapsed(true)
     }
   }, [width])
@@ -63,13 +65,14 @@ const Layout: React.FC<LayoutInterface> = ({
       </Head>
       <Sidebar collapsed={collapsed} />
       <Topbar
+        value={searchableTool}
+        defaultValue={searchableTool}
+        onChange={(tool: any) => setSearchableTool(tool)}
         highlightTitle={highlightTitle}
         collapsed={collapsed}
         handleCollapsed={handleCollapsed}
       />
-      <Container sideBarCollapsed={collapsed}>
-        <main>{children}</main>
-      </Container>
+      <Container sideBarCollapsed={collapsed}>{children}</Container>
       <FloatChat>
         <Chat />
       </FloatChat>

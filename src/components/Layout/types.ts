@@ -1,12 +1,9 @@
-import { ReactNode } from 'react'
+import { ChangeEvent, HtmlHTMLAttributes, ReactNode } from 'react'
 
-export interface LayoutInterface {
+export interface LayoutInterface extends HtmlHTMLAttributes<HTMLDivElement> {
   title: string
   description: string
   children: ReactNode
   highlightTitle: string
-}
-
-export interface ContainerInterface {
-  sideBarCollapsed: boolean
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void
 }
