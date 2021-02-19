@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import useSWR from 'swr'
+import useSWR, { responseInterface } from 'swr'
 
 import api from '@/services/api'
 

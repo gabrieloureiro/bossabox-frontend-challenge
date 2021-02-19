@@ -10,7 +10,7 @@ export const StyledSidebar = styled.div`
   text-align: center;
   z-index: 2;
   border-right: 0.5px solid ${props => props.theme.colors.mostDarkestWhite};
-  top: 99px;
+  top: 100px;
   left: 0;
   padding: 30.5px 0;
   transition: all 0.5s ease-out;

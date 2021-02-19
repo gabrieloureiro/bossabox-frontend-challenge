@@ -1,3 +1,7 @@
 import { InputHTMLAttributes } from 'react'
 
-export type SearchbarInterface = InputHTMLAttributes<HTMLInputElement>
+export interface SearchbarInterface
+  extends InputHTMLAttributes<HTMLInputElement> {
+  value: string
+  defaultValue: string
+}

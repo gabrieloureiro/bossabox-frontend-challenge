@@ -7,36 +7,34 @@ export const StyledBar = styled.div`
   width: 100%;
   height: 100px;
   background: ${props => props.theme.colors.white};
-  border: 0.5px solid ${props => props.theme.colors.mostDarkestWhite};
-  border-left: none;
+  border-bottom: 0.5px solid ${props => props.theme.colors.mostDarkestWhite};
 `
 
 export const LogoWrapper = styled.div`
   margin: 30px 35.55px 34.95px 34.5px;
+
+  @media screen and (max-width: 539px) {
+    display: none;
+  }
 `
 
 export const CollapseTrigger = styled.div`
   cursor: pointer;
+  min-width: 72.55px;
+  max-width: 72.55px;
   width: 72.55px;
   display: flex;
   justify-content: center;
   align-items: center;
   border-left: 0.5px solid ${props => props.theme.colors.mostDarkestWhite};
-
-  &::before {
-    content: '';
-    display: block;
-    background: transparent;
-    height: 100px;
-    width: 35.55px;
-  }
+  padding: 20px;
 `
 
 export const Title = styled.h3`
   margin: auto 0;
   padding: 0 35.55px;
 
-  @media screen and (max-width: 550px) {
+  @media screen and (max-width: 610px) {
     display: none;
   }
 `
@@ -44,18 +42,17 @@ export const Title = styled.h3`
 export const UserDropdown = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   margin: auto 0;
   margin-right: 30px;
   background: transparent;
-  min-width: 77px;
   height: 18px;
   border: 0;
   border-radius: 5px;
   cursor: pointer;
 
-  @media screen and (max-width: 550px) {
-    display: none;
+  @media screen and (max-width: 675px) {
+    min-width: auto;
   }
 `
 
@@ -64,19 +61,31 @@ export const Username = styled.span`
   font: normal normal 600 20px/26px Source Sans Pro;
   letter-spacing: 0.4px;
   color: ${props => props.theme.colors.lightInk};
+  margin-right: 18px;
+
+  @media screen and (max-width: 675px) {
+    display: none;
+  }
 `
 
-export const Avatar = styled.div`
+export const Avatar = styled.img`
   margin: auto 0;
   margin-right: 30px;
-  min-width: 35px;
-  min-height: 35px;
+  max-width: 35px;
+  max-height: 35px;
   border-radius: 50%;
   background: ${props => props.theme.colors.lightInk};
+  object-fit: cover;
+  vertical-align: middle;
+
   cursor: pointer;
 
   @media screen and (max-width: 550px) {
     margin-left: auto;
+  }
+
+  @media screen and (max-width: 330px) {
+    display: none;
   }
 `
 
@@ -90,10 +99,6 @@ export const AlertNotifications = styled.div`
   border: 2px solid ${props => props.theme.colors.lighterInk};
   cursor: pointer;
 
-  @media screen and (max-width: 330px) {
-    display: none;
-  }
-
   &::after {
     content: '';
     display: block;
@@ -104,5 +109,9 @@ export const AlertNotifications = styled.div`
     position: absolute;
     right: -8px;
     top: -8px;
+  }
+
+  @media screen and (max-width: 731px) {
+    display: none;
   }
 `

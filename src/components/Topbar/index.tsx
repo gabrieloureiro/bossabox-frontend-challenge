@@ -8,7 +8,6 @@ import {
   Logobossabox,
   Chevrondown
 } from '@/components/Icons'
-import Searchbar from '@/components/SearchBar'
 
 import {
   StyledBar,
@@ -20,10 +19,14 @@ import {
   Avatar,
   AlertNotifications
 } from './styles'
+import Searchbar from '../SearchBar'
 
 const Topbar: React.FC<TopbarInterface> = ({
   highlightTitle,
   collapsed,
+  value,
+  defaultValue,
+  onChange,
   handleCollapsed
 }) => {
   return (
@@ -35,12 +38,16 @@ const Topbar: React.FC<TopbarInterface> = ({
         {collapsed ? <Chevronleft /> : <Menuitem />}
       </CollapseTrigger>
       <Title>{highlightTitle}</Title>
-      <Searchbar />
+      <Searchbar
+        value={value}
+        defaultValue={defaultValue}
+        onChange={onChange}
+      />
       <UserDropdown>
-        <Username>Dalos</Username>
+        <Username>Gabriel</Username>
         <Chevrondown />
       </UserDropdown>
-      <Avatar />
+      <Avatar src="/images/gl.jpg" alt="avatar" />
       <AlertNotifications />
     </StyledBar>
   )

@@ -12,6 +12,10 @@ interface TagInterface {
 export const AddButton = styled(Button)`
   margin-left: auto;
   margin-bottom: 24px;
+
+  @media screen and (max-width: 430px) {
+    margin: 0 auto 24px auto;
+  }
 `
 
 export const EditButton = styled(Edit)`

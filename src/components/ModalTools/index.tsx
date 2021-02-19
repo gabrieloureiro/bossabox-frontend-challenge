@@ -1,3 +1,5 @@
+/* eslint-disable no-lone-blocks */
+/* eslint-disable prettier/prettier */
 import React, { useCallback, useRef } from 'react'
 
 import api from '@/services/api'
@@ -5,14 +7,14 @@ import { useFetch } from '@/hooks/useFetch'
 import { mutate as mutateGlobal } from 'swr'
 
 import getValidationErrors from '@/utils/getValidationErrors'
-import toolsSchema from '@/utils/toolsSchema'
+import { toolsSchemaEmpty, toolsSchema } from '@/utils/toolsSchema'
 import { formToolsItems, ToolsInterface } from '@/models/tools'
 import { ModalToolsInterface } from './types'
 
 import Modal from '@/components/Modal'
 import Input from '@/components/Input'
 import { Row } from '@/components/Row'
-import { Form, CancelButton, ConfirmButton } from './styles'
+import { Form, CancelButton, ConfirmButton, InfoLabel } from './styles'
 
 const ModalTools: React.FC<ModalToolsInterface> = ({
   title,
@@ -20,6 +22,7 @@ const ModalTools: React.FC<ModalToolsInterface> = ({
   open
 }) => {
   const formRef = useRef(null)
+
   const { data } = useFetch<ToolsInterface[]>('tools')
 
   const handleAddTool = useCallback(
@@ -44,7 +47,12 @@ const ModalTools: React.FC<ModalToolsInterface> = ({
               ? formData.tags.toString().split(',')
               : []
         }
-        await toolsSchema.validate(editedFormData, { abortEarly: false })
+
+        formData.tags.toString() !== ''
+          ? await toolsSchema.validate(editedFormData, { abortEarly: false })
+          : await toolsSchemaEmpty.validate(editedFormData, {
+            abortEarly: false
+          })
 
         await handleAddTool(editedFormData)
 
@@ -63,12 +71,17 @@ const ModalTools: React.FC<ModalToolsInterface> = ({
       <Form ref={formRef} onSubmit={handleSubmit}>
         {formToolsItems.map((item, index) => {
           return (
-            <Input
-              key={`${item.label}_${index}`}
-              label={item.label}
-              required
-              name={item.name}
-            />
+            <>
+              <Input
+                key={`${item.label}_${index}`}
+                label={item.label}
+                required
+                name={item.name}
+              />
+              {item.name === 'tags' && (
+                <InfoLabel>Please, insert tags separated by comma</InfoLabel>
+              )}
+            </>
           )
         })}
         <Row wrap align="center" justify="end">

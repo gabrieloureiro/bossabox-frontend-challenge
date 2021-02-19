@@ -1,10 +1,11 @@
 /* eslint-disable indent */
 /* eslint-disable prettier/prettier */
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 
 import api from '@/services/api'
 import { useFetch } from '@/hooks/useFetch'
 import { mutate as mutateGlobal } from 'swr'
+import { useSelector, useDispatch } from 'react-redux'
 
 import { ToolsInterface } from '@/models/tools'
 
@@ -28,18 +29,34 @@ import {
   AddButton,
   DeleteButton
 } from '@/styles/pages/Home'
+import { GlobalStateInterface } from '@/store/modules/rootReducer'
+import { readTools } from '@/store/modules/tools/actions'
+import Switch from '@/components/Switch'
 
 const Home: React.FC = () => {
+  const dispatch = useDispatch()
   const [openModal, setOpenModal] = useState(false)
+  const [filterByTag, setFilterByTag] = useState(false)
   const { data } = useFetch<ToolsInterface[]>('tools')
 
-  const handleOpenModal = (): void => {
-    setOpenModal(true)
-  }
+  const searchValue = useSelector<GlobalStateInterface, string>(state =>
+    state.search.toLowerCase()
+  )
+  const tools = useSelector<GlobalStateInterface, ToolsInterface[]>(state =>
+    state.tools.filter(tool => {
+      return !filterByTag
+        ? tool.title.toLowerCase().includes(searchValue) ||
+        tool.description.toLowerCase().includes(searchValue) ||
+        tool.tags.toString().toLowerCase().includes(searchValue)
+        : tool.tags.toString().toLowerCase().includes(searchValue)
+    })
+  )
 
-  const handleCloseModal = (): void => {
-    setOpenModal(false)
-  }
+  useEffect(() => {
+    if (data) {
+      dispatch(readTools(data))
+    }
+  }, [data, dispatch])
 
   const handleDeleteTool = useCallback(async (tool: ToolsInterface) => {
     await api.delete(`tools/${tool.id}`, { data: tool })
@@ -53,17 +70,24 @@ const Home: React.FC = () => {
   return (
     <Layout
       title="VUTTR | Very Useful Tools to Remember"
-      highlightTitle="Tools"
+      highlightTitle="VUTTR"
       description="Get to know the best and most useful tools to development"
     >
-      <Row wrap align="center">
+      <Row wrap align="center" justify="spaceAround">
         <ContainerTitle>Very Useful Tools to Remember</ContainerTitle>
-        <AddButton buttonType="primaryNeutral" onClick={handleOpenModal}>
+        <Switch
+          isOn={filterByTag}
+          handleToggle={() => setFilterByTag(!filterByTag)}
+        />
+        <AddButton
+          buttonType="primaryNeutral"
+          onClick={() => setOpenModal(true)}
+        >
           Add Tool
         </AddButton>
       </Row>
       <FullCardList>
-        {data?.map((item, index) => {
+        {tools?.map((item, index) => {
           return (
             <FullCardListItem key={`${item.id}_${index}`}>
               <Fade delay={`${index}0`}>
@@ -90,7 +114,7 @@ const Home: React.FC = () => {
                         <CardTag
                           key={`${tag}_${index}`}
                           backgroundColor={`${selectColor(
-                            Math.floor(Math.random() * 7),
+                            Math.floor(Math.random() * 999),
                             10
                           )}`}
                         >
@@ -109,7 +133,7 @@ const Home: React.FC = () => {
         <ModalTools
           title="Add a tool"
           open={openModal}
-          onClose={handleCloseModal}
+          onClose={() => setOpenModal(false)}
         />
       ) : null}
     </Layout>
