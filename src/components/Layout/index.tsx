@@ -11,7 +11,7 @@ import { Chat } from '@/components/Icons'
 import { FloatChat } from './styles'
 
 import { LayoutInterface } from './types'
-import { getSearchValue } from '@/store/modules/search/actions'
+import { readSearchValue } from '@/store/modules/search/actions'
 
 const Layout: React.FC<LayoutInterface> = ({
   title,
@@ -48,7 +48,7 @@ const Layout: React.FC<LayoutInterface> = ({
   }
 
   useEffect(() => {
-    dispatch(getSearchValue(searchableTool))
+    dispatch(readSearchValue(searchableTool))
   }, [dispatch])
 
   useEffect(() => {

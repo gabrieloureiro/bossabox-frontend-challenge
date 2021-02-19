@@ -1,6 +1,6 @@
-export const getSearchValue = (searchValue: string): any => {
+export const readSearchValue = (searchValue: string): any => {
   return {
-    type: 'GET_SEARCH_VALUE',
+    type: 'READ_SEARCH_VALUE',
     payload: searchValue
   }
 }

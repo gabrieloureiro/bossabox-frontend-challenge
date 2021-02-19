@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import produce from 'immer'
 
-const search = (state = '', action: any): any => {
+const tools = (state = [], action: any): any => {
   return produce(state, draft => {
     switch (action.type) {
-      case 'READ_SEARCH_VALUE': {
-        const searchValue = action.payload
-        draft.slice(999)
-        return searchValue
+      case 'READ_TOOLS': {
+        const tool = action.payload
+
+        return tool
       }
       default: {
         return state
@@ -16,4 +16,4 @@ const search = (state = '', action: any): any => {
   })
 }
 
-export default search
+export default tools

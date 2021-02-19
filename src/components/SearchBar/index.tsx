@@ -6,7 +6,7 @@ import { Search } from '@/components/Icons'
 
 import { Wrapper, StyledSearchbar } from './styles'
 import { useDispatch } from 'react-redux'
-import { getSearchValue } from '@/store/modules/search/actions'
+import { readSearchValue } from '@/store/modules/search/actions'
 
 const Searchbar: React.FC<SearchbarInterface> = ({
   defaultValue,
@@ -17,7 +17,7 @@ const Searchbar: React.FC<SearchbarInterface> = ({
   const dispatch = useDispatch()
   const handleChange = (event: any) => {
     onChange(event.target.value)
-    dispatch(getSearchValue(event.target.value))
+    dispatch(readSearchValue(event.target.value))
   }
 
   return (

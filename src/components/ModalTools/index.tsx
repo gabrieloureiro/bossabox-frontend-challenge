@@ -20,6 +20,7 @@ const ModalTools: React.FC<ModalToolsInterface> = ({
   open
 }) => {
   const formRef = useRef(null)
+
   const { data } = useFetch<ToolsInterface[]>('tools')
 
   const handleAddTool = useCallback(

@@ -5,7 +5,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import api from '@/services/api'
 import { useFetch } from '@/hooks/useFetch'
 import { mutate as mutateGlobal } from 'swr'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 import { ToolsInterface } from '@/models/tools'
 
@@ -30,14 +30,43 @@ import {
   DeleteButton
 } from '@/styles/pages/Home'
 import { GlobalStateInterface } from '@/store/modules/rootReducer'
+import { readTools } from '@/store/modules/tools/actions'
+import Switch from '@/components/Switch'
 
 const Home: React.FC = () => {
+  const dispatch = useDispatch()
   const [openModal, setOpenModal] = useState(false)
-  const searchValue = useSelector<GlobalStateInterface, string>(state => state.search)
-  const { data } = useFetch<ToolsInterface[]>('tools', searchValue)
+  const [filterByTag, setFilterByTag] = useState(false)
+  const { data } = useFetch<ToolsInterface[]>('tools')
+  const searchValue = useSelector<GlobalStateInterface, string>(
+    state => state.search
+  )
+  const tools = useSelector<GlobalStateInterface, ToolsInterface[]>(state =>
+    state.tools.filter(tool => {
+      return !filterByTag
+        ? tool.title.includes(searchValue)
+        : tool.tags.toString().includes(searchValue)
+    })
+  )
+
+  useEffect(() => {
+    if (data) {
+      dispatch(readTools(data))
+    }
+  }, [data, dispatch])
+
+  const handleChangeFilter = () => {
+    if (filterByTag) {
+      setFilterByTag(false)
+      return filterByTag
+    }
+    setFilterByTag(true)
+    return filterByTag
+  }
 
   const handleOpenModal = (): void => {
     setOpenModal(true)
+    setFilterByTag(true)
   }
 
   const handleCloseModal = (): void => {
@@ -61,12 +90,16 @@ const Home: React.FC = () => {
     >
       <Row wrap align="center">
         <ContainerTitle>Very Useful Tools to Remember</ContainerTitle>
+        <Switch
+          isOn={filterByTag}
+          handleToggle={() => setFilterByTag(!filterByTag)}
+        />
         <AddButton buttonType="primaryNeutral" onClick={handleOpenModal}>
           Add Tool
         </AddButton>
       </Row>
       <FullCardList>
-        {data?.map((item, index) => {
+        {tools?.map((item, index) => {
           return (
             <FullCardListItem key={`${item.id}_${index}`}>
               <Fade delay={`${index}0`}>
