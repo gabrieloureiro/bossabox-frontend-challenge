@@ -4,7 +4,7 @@ import { SearchbarInterface } from './types'
 
 import { Search } from '@/components/Icons'
 
-import { Wrapper, StyledSearchbar } from './styles'
+import { SearchWrapper, StyledSearchbar } from './styles'
 import { useDispatch } from 'react-redux'
 import { readSearchValue } from '@/store/modules/search/actions'
 
@@ -21,17 +21,19 @@ const Searchbar: React.FC<SearchbarInterface> = ({
   }
 
   return (
-    <Wrapper>
-      <Search />
-      <StyledSearchbar
-        type="text"
-        value={value}
-        defaultValue={defaultValue}
-        onChange={handleChange}
-        placeholder="Enter the tool you want..."
-        {...rest}
-      />
-    </Wrapper>
+    <>
+      <SearchWrapper>
+        <Search />
+        <StyledSearchbar
+          type="text"
+          value={value}
+          defaultValue={defaultValue}
+          onChange={handleChange}
+          placeholder="Enter the tool you want..."
+          {...rest}
+        />
+      </SearchWrapper>
+    </>
   )
 }
 

@@ -2,13 +2,12 @@ import React from 'react'
 
 import { SwitchInterface } from './types'
 
-import { Wrapper } from './styles'
+import { Wrapper, Message } from './styles'
 
 const Switch: React.FC<SwitchInterface> = ({ isOn, handleToggle }) => {
   return (
     <Wrapper>
       <input
-        className="react-switch-checkbox"
         checked={isOn}
         onChange={handleToggle}
         id={'react-switch-new'}
@@ -16,11 +15,15 @@ const Switch: React.FC<SwitchInterface> = ({ isOn, handleToggle }) => {
       />
       <label
         style={{ background: isOn && '#12DB89' }}
-        className="react-switch-label"
         htmlFor={'react-switch-new'}
       >
-        <span className={'react-switch-button'} />
+        <span />
       </label>
+      <Message>
+        {!isOn
+          ? 'Toggle on to search in tags only'
+          : 'Toggle off to search globally'}
+      </Message>
     </Wrapper>
   )
 }

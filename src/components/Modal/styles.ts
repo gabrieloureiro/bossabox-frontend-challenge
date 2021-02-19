@@ -40,8 +40,15 @@ export const ModalTitle = styled.h5`
 `
 
 export const CloseIcon = styled(Close)`
-  color: ${props => props.theme.colors.lightInk};
+  stroke: ${props => props.theme.colors.lightInk};
   cursor: pointer;
+  fill: none;
+  stroke-miterlimit: 10;
+  stroke-width: 2px;
+
+  &:hover {
+    stroke: ${props => props.theme.colors.red};
+  }
 `
 const handleSize = (size: string) => {
   switch (size) {

@@ -38,14 +38,17 @@ const Home: React.FC = () => {
   const [openModal, setOpenModal] = useState(false)
   const [filterByTag, setFilterByTag] = useState(false)
   const { data } = useFetch<ToolsInterface[]>('tools')
-  const searchValue = useSelector<GlobalStateInterface, string>(
-    state => state.search
+
+  const searchValue = useSelector<GlobalStateInterface, string>(state =>
+    state.search.toLowerCase()
   )
   const tools = useSelector<GlobalStateInterface, ToolsInterface[]>(state =>
     state.tools.filter(tool => {
       return !filterByTag
-        ? tool.title.includes(searchValue)
-        : tool.tags.toString().includes(searchValue)
+        ? tool.title.toLowerCase().includes(searchValue) ||
+        tool.description.toLowerCase().includes(searchValue) ||
+        tool.tags.toString().toLowerCase().includes(searchValue)
+        : tool.tags.toString().toLowerCase().includes(searchValue)
     })
   )
 
@@ -54,24 +57,6 @@ const Home: React.FC = () => {
       dispatch(readTools(data))
     }
   }, [data, dispatch])
-
-  const handleChangeFilter = () => {
-    if (filterByTag) {
-      setFilterByTag(false)
-      return filterByTag
-    }
-    setFilterByTag(true)
-    return filterByTag
-  }
-
-  const handleOpenModal = (): void => {
-    setOpenModal(true)
-    setFilterByTag(true)
-  }
-
-  const handleCloseModal = (): void => {
-    setOpenModal(false)
-  }
 
   const handleDeleteTool = useCallback(async (tool: ToolsInterface) => {
     await api.delete(`tools/${tool.id}`, { data: tool })
@@ -85,16 +70,19 @@ const Home: React.FC = () => {
   return (
     <Layout
       title="VUTTR | Very Useful Tools to Remember"
-      highlightTitle="Tools"
+      highlightTitle="VUTTR"
       description="Get to know the best and most useful tools to development"
     >
-      <Row wrap align="center">
+      <Row wrap align="center" justify="spaceAround">
         <ContainerTitle>Very Useful Tools to Remember</ContainerTitle>
         <Switch
           isOn={filterByTag}
           handleToggle={() => setFilterByTag(!filterByTag)}
         />
-        <AddButton buttonType="primaryNeutral" onClick={handleOpenModal}>
+        <AddButton
+          buttonType="primaryNeutral"
+          onClick={() => setOpenModal(true)}
+        >
           Add Tool
         </AddButton>
       </Row>
@@ -145,7 +133,7 @@ const Home: React.FC = () => {
         <ModalTools
           title="Add a tool"
           open={openModal}
-          onClose={handleCloseModal}
+          onClose={() => setOpenModal(false)}
         />
       ) : null}
     </Layout>

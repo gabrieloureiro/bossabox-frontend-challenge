@@ -4,7 +4,8 @@ import { useField } from '@unform/core'
 
 import { InputInterface } from './types'
 
-import { Label, StyledInput } from './styles'
+import { Label, StyledInput, Error } from './styles'
+import { Row } from '../Row'
 
 const Input: React.FC<InputInterface> = ({
   name,
@@ -51,9 +52,10 @@ const Input: React.FC<InputInterface> = ({
         name={fieldName}
         ref={inputRef}
         fieldError={containsError}
-        placeholder={containsError ? error : placeholder}
+        placeholder={placeholder}
         {...rest}
       />
+      <Row justify="end">{containsError && <Error>{error}</Error>}</Row>
     </>
   )
 }

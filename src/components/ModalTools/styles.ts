@@ -8,9 +8,16 @@ export const Form = styled(StyledForm)`
 `
 
 export const CancelButton = styled(Button)`
-  margin-bottom: 12px;
+  margin: 10px 0;
 `
 
 export const ConfirmButton = styled(Button)`
-  margin: 0 0 12px 12px;
+  margin: 10px 0 10px 10px;
+`
+
+export const InfoLabel = styled.label`
+  text-align: right;
+  font: normal normal normal 14px/24px Source Sans Pro;
+  letter-spacing: 0.36px;
+  color: ${props => props.theme.colors.ink};
 `

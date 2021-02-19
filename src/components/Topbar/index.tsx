@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import { TopbarInterface } from './types'
 
@@ -8,7 +8,6 @@ import {
   Logobossabox,
   Chevrondown
 } from '@/components/Icons'
-import Searchbar from '@/components/SearchBar'
 
 import {
   StyledBar,
@@ -20,6 +19,7 @@ import {
   Avatar,
   AlertNotifications
 } from './styles'
+import Searchbar from '../SearchBar'
 
 const Topbar: React.FC<TopbarInterface> = ({
   highlightTitle,
@@ -44,10 +44,10 @@ const Topbar: React.FC<TopbarInterface> = ({
         onChange={onChange}
       />
       <UserDropdown>
-        <Username>Dalos</Username>
+        <Username>Gabriel</Username>
         <Chevrondown />
       </UserDropdown>
-      <Avatar />
+      <Avatar src="/images/gl.jpg" alt="avatar" />
       <AlertNotifications />
     </StyledBar>
   )
