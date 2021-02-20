@@ -1,6 +1,7 @@
 import React from 'react'
+import dynamic from 'next/dynamic'
 
-import Layout from '@/components/Layout'
+const Layout = dynamic(() => import('@/components/Layout'), { ssr: false })
 
 const Stackes: React.FC = () => {
   return (

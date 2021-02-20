@@ -22,16 +22,9 @@ const Layout: React.FC<LayoutInterface> = ({
   const [collapsed, setCollapsed] = useState(true)
   const dispatch = useDispatch()
   const [searchableTool, setSearchableTool] = useState('')
-  const [width, setWidth] = useState(window.innerWidth)
-
-  const handleCollapsed = () => {
-    if (collapsed) {
-      setCollapsed(false)
-      return collapsed
-    }
-    setCollapsed(true)
-    return collapsed
-  }
+  const [width, setWidth] = useState(
+    window !== undefined ? window.innerWidth : 0
+  )
 
   const handleWindowSize = () => {
     if (typeof window.innerWidth === 'number') {
@@ -78,7 +71,7 @@ const Layout: React.FC<LayoutInterface> = ({
         onChange={(tool: any) => setSearchableTool(tool)}
         highlightTitle={highlightTitle}
         collapsed={collapsed}
-        handleCollapsed={handleCollapsed}
+        handleCollapsed={() => setCollapsed(!collapsed)}
       />
       <Container sideBarCollapsed={collapsed}>{children}</Container>
       <FloatChat
