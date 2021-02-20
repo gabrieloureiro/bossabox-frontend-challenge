@@ -73,6 +73,8 @@ export const Avatar = styled.img`
   margin-right: 30px;
   max-width: 35px;
   max-height: 35px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
   background: ${props => props.theme.colors.lightInk};
   object-fit: cover;
