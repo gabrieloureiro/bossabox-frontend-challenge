@@ -32,10 +32,15 @@ import {
 import { GlobalStateInterface } from '@/store/modules/rootReducer'
 import { readTools } from '@/store/modules/tools/actions'
 import Switch from '@/components/Switch'
+import ModalDeleteTools from '@/components/ModalDeleteTools'
 
 const Home: React.FC = () => {
   const dispatch = useDispatch()
   const [openModal, setOpenModal] = useState(false)
+  const [openDeleteModal, setOpenDeleteModal] = useState(false)
+  const [currentTool, setCurrentTool] = useState<ToolsInterface>(
+    {} as ToolsInterface
+  )
   const [filterByTag, setFilterByTag] = useState(false)
   const { data } = useFetch<ToolsInterface[]>('tools')
 
@@ -105,7 +110,12 @@ const Home: React.FC = () => {
                     ) : (
                         <CardTitle>{item.title}</CardTitle>
                       )}
-                    <DeleteButton onClick={() => handleDeleteTool(item)} />
+                    <DeleteButton
+                      onClick={() => {
+                        setOpenDeleteModal(true)
+                        setCurrentTool(item)
+                      }}
+                    />
                   </Row>
                   <CardDescription>{item.description}</CardDescription>
                   <Row wrap>
@@ -134,6 +144,18 @@ const Home: React.FC = () => {
           title="Add a tool"
           open={openModal}
           onClose={() => setOpenModal(false)}
+        />
+      ) : null}
+      {openDeleteModal ? (
+        <ModalDeleteTools
+          title="Remove tool"
+          toolTitle={currentTool.title}
+          open={openDeleteModal}
+          onClose={() => setOpenDeleteModal(false)}
+          onConfirm={() => {
+            handleDeleteTool(currentTool)
+            setOpenDeleteModal(false)
+          }}
         />
       ) : null}
     </Layout>

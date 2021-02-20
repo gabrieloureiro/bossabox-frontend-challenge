@@ -1,16 +1,16 @@
 const AVAILABLE_ROUTES = [
   {
-    title: 'Roadmap',
+    title: 'Home',
     path: '/',
     icon: 'roadmap'
   },
   {
     title: 'Stackes',
-    path: 'https://www.linkedin.com/in/gabrieloureiro/',
+    path: '/stackes',
     icon: 'stackes'
   },
   {
-    title: 'Send',
+    title: 'Linkedin',
     path: 'https://www.linkedin.com/in/gabrieloureiro/',
     icon: 'send'
   },

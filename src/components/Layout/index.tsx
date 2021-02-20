@@ -8,7 +8,7 @@ import Topbar from '@/components/Topbar'
 import Container from '@/components/Container'
 import { Chat } from '@/components/Icons'
 
-import { FloatChat } from './styles'
+import { FloatChat, Message } from './styles'
 
 import { LayoutInterface } from './types'
 import { readSearchValue } from '@/store/modules/search/actions'
@@ -81,7 +81,16 @@ const Layout: React.FC<LayoutInterface> = ({
         handleCollapsed={handleCollapsed}
       />
       <Container sideBarCollapsed={collapsed}>{children}</Container>
-      <FloatChat>
+      <FloatChat
+        aria-label="whatsapp"
+        target="_blank"
+        rel="noopener noreferrer external"
+        href="https://api.whatsapp.com/send?phone=5585999134041"
+      >
+        <Message>
+          Hello, my name is <strong>Gabriel Loureiro</strong>. Did you enjoy my
+          job? Click here or in the button below and talk to me!
+        </Message>
         <Chat />
       </FloatChat>
     </>

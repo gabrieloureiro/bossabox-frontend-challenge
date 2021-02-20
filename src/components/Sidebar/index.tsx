@@ -1,6 +1,6 @@
 import React from 'react'
-import Link from 'next/link'
 
+import Link from 'next/link'
 import { SidebarInterface } from './types'
 
 import AVAILABLE_ROUTES from '@/services/contentProvider'
@@ -10,7 +10,8 @@ import {
   StyledSidebar,
   Navigation,
   NavigationItem,
-  NavigationList
+  NavigationList,
+  Tooltip
 } from './styles'
 
 const Sidebar: React.FC<SidebarInterface> = ({ collapsed }) => {
@@ -43,7 +44,13 @@ const Sidebar: React.FC<SidebarInterface> = ({ collapsed }) => {
         <NavigationList>
           {AVAILABLE_ROUTES.map((item, index) => {
             return (
-              <NavigationItem key={item.icon + index}>
+              <NavigationItem
+                activeRoute={window.location.pathname === item.path}
+                key={item.icon + index}
+              >
+                {item.path && item.icon && item.title && (
+                  <Tooltip>{item.title}</Tooltip>
+                )}
                 <Link href={item.path}>{handleIcon(item.icon)}</Link>
               </NavigationItem>
             )

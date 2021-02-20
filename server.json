@@ -64,28 +64,6 @@
         "nodejs"
       ],
       "id": 6
-    },
-    {
-      "title": "Data management analyst",
-      "description": "Banco de dados",
-      "link": "https://www.react-reveal.com/examples/specials/headshake/",
-      "tags": [
-        "teste1",
-        "teste2",
-        "teste3",
-        "teste5"
-      ],
-      "id": 7
-    },
-    {
-      "title": "a",
-      "description": "a",
-      "link": "https://www.react-reveal.com/examples/specials/headshake/3",
-      "tags": [
-        "a       ",
-        "aaaa"
-      ],
-      "id": 8
     }
   ]
 }
