@@ -39,6 +39,7 @@ import {
 
 const Home: React.FC = () => {
   const dispatch = useDispatch()
+  const { data } = useFetch('tools')
   const [openModal, setOpenModal] = useState(false)
   const [openDeleteModal, setOpenDeleteModal] = useState(false)
   const [openBanner, setOpenBanner] = useState(false)
@@ -47,7 +48,6 @@ const Home: React.FC = () => {
     {} as ToolsInterface
   )
   const [filterByTag, setFilterByTag] = useState(false)
-  const { data } = useFetch<ToolsInterface[]>('tools')
   const message = useSelector<GlobalStateInterface, MessageInterface>(
     state => state.message
   )
