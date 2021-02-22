@@ -21,7 +21,6 @@
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
-![image](https://user-images.githubusercontent.com/39869298/108779918-6950de00-7546-11eb-9c2c-86c76e010ff9.png)
 
 
 
@@ -93,7 +92,7 @@ This platform allows the user to create, delete and search for useful tools for 
 <!-- GETTING STARTED -->
 ## Getting Started
 
-If you do not want to run the project in the development environment, you can access it at * [here](https://bossabox-frontend-challenge.vercel.app/)
+If you do not want to run the project in the development environment, you can access it at [demo](https://bossabox-frontend-challenge.vercel.app/)
 
 ### Prerequisites
 
@@ -106,7 +105,7 @@ You need to install npm (to install yarn, hahaha)
 
 * yarn
 ```sh
-npm install -g yarn
+  npm install -g yarn
 ```
 
 ### Installation
@@ -125,7 +124,6 @@ npm install -g yarn
    ```
 
 
-
 <!-- USAGE EXAMPLES -->
 ## Usage
 
@@ -134,45 +132,15 @@ Use this space to show useful examples of how a project can be used. Additional 
 _For more examples, please refer to the [Documentation](https://example.com)_
 
 
-
-<!-- ROADMAP -->
-## Roadmap
-
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a list of proposed features (and known issues).
-
-
-
-<!-- CONTRIBUTING -->
-## Contributing
-
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-
-
-<!-- LICENSE -->
-## License
-
-Distributed under the MIT License. See `LICENSE` for more information.
-
-
-
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
-
-Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
-
+Linkedin - [gabrieloureiro](https://linkedin.com/in/gabrieloureiro)
+Email - [gabrieloureirof@gmail.com](mailto:gabrieloureirof@gmail.com)
 
 
 <!-- ACKNOWLEDGEMENTS -->
-## Acknowledgements
+## Third-Part Packages
 * [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
 * [Img Shields](https://shields.io)
 * [Choose an Open Source License](https://choosealicense.com)
