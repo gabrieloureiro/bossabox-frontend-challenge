@@ -38,11 +38,13 @@ const Topbar: React.FC<TopbarInterface> = ({
         {collapsed ? <Chevronleft /> : <Menuitem />}
       </CollapseTrigger>
       <Title>{highlightTitle}</Title>
-      <Searchbar
-        value={value}
-        defaultValue={defaultValue}
-        onChange={onChange}
-      />
+      {
+        <Searchbar
+          value={value}
+          defaultValue={defaultValue}
+          onChange={onChange}
+        />
+      }
       <UserDropdown>
         <Username>Gabriel</Username>
         <Chevrondown />

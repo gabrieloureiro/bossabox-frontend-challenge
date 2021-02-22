@@ -1,6 +1,7 @@
 import React from 'react'
-
 import Link from 'next/link'
+import { useRouter } from 'next/router'
+
 import { SidebarInterface } from './types'
 
 import AVAILABLE_ROUTES from '@/services/contentProvider'
@@ -15,6 +16,8 @@ import {
 } from './styles'
 
 const Sidebar: React.FC<SidebarInterface> = ({ collapsed }) => {
+  const router = useRouter()
+
   const handleIcon: React.FC<string> = (icon: string) => {
     switch (icon) {
       case 'roadmap': {
@@ -44,15 +47,15 @@ const Sidebar: React.FC<SidebarInterface> = ({ collapsed }) => {
         <NavigationList>
           {AVAILABLE_ROUTES.map((item, index) => {
             return (
-              <NavigationItem
-                activeRoute={window.location.pathname === item.path}
-                key={item.icon + index}
-              >
-                {item.path && item.icon && item.title && (
-                  <Tooltip>{item.title}</Tooltip>
-                )}
-                <Link href={item.path}>{handleIcon(item.icon)}</Link>
-              </NavigationItem>
+              <Link key={item.icon + index} href={item.path}>
+                <NavigationItem
+                  activeRoute={router.pathname === item.path}
+                  key={item.icon + index}
+                >
+                  {handleIcon(item.icon)}
+                  {item.icon && item.title && <Tooltip>{item.title}</Tooltip>}
+                </NavigationItem>
+              </Link>
             )
           })}
         </NavigationList>

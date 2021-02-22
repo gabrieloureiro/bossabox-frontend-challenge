@@ -3,12 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "npm run svg-to-react && next dev",
-    "dev:server": "concurrently --kill-others \"npm run dev\" \"npm run server\"",
-    "build": "npm run svg-to-react && next build",
-    "start": "npm run svg-to-react && next build && next start",
+    "dev:base": "npm run svg-to-react && next dev",
+    "server": "json-server server.json -p 3333",
     "svg-to-react": "svgr --no-prettier -d src/components/Icons public/icons",
-    "server": "json-server server.json -p 3333"
+    "build": "npm run svg-to-react && next build",
+    "dev": "concurrently --kill-others \"npm run dev:base\" \"npm run server\"",
+    "start": "npm run svg-to-react && next build && next start"
   },
   "dependencies": {
     "@svgr/cli": "^5.5.0",

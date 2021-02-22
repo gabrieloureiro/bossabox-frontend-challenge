@@ -27,7 +27,11 @@ const ModalTools: React.FC<ModalToolsInterface> = ({
 
   const handleAddTool = useCallback(
     async (tool: ToolsInterface) => {
-      await api.post('tools', tool)
+      await api.post('tools', tool).then(response => {
+        if (response.status === 201) {
+          console.log('remaining add notification banner')
+        }
+      })
       mutateGlobal('tools', false)
     },
     [data]

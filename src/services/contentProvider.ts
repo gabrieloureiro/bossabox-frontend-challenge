@@ -5,23 +5,23 @@ const AVAILABLE_ROUTES = [
     icon: 'roadmap'
   },
   {
-    title: 'Stackes',
-    path: '/stackes',
+    title: 'About me',
+    path: '/about',
     icon: 'stackes'
   },
   {
-    title: 'Linkedin',
-    path: 'https://www.linkedin.com/in/gabrieloureiro/',
+    title: 'Send a mail',
+    path: 'mailto:gabrieloureirof@gmail.com',
     icon: 'send'
   },
   {
     title: 'Settings',
-    path: 'https://www.linkedin.com/in/gabrieloureiro/',
+    path: '',
     icon: 'settings'
   },
   {
     title: 'Help',
-    path: 'https://www.linkedin.com/in/gabrieloureiro/',
+    path: '',
     icon: 'help'
   }
 ]

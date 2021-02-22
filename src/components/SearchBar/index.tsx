@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { useRouter } from 'next/router'
+
 import { SearchbarInterface } from './types'
 
 import { Search } from '@/components/Icons'
@@ -15,6 +17,7 @@ const Searchbar: React.FC<SearchbarInterface> = ({
   ...rest
 }) => {
   const dispatch = useDispatch()
+  const router = useRouter()
   const handleChange = (event: any) => {
     onChange(event.target.value)
     dispatch(readSearchValue(event.target.value))
@@ -27,9 +30,14 @@ const Searchbar: React.FC<SearchbarInterface> = ({
         <StyledSearchbar
           type="text"
           value={value}
+          disabled={router.pathname !== '/'}
           defaultValue={defaultValue}
           onChange={handleChange}
-          placeholder="Enter the tool you want..."
+          placeholder={
+            router.pathname === '/'
+              ? 'Enter the tool you want...'
+              : 'You cannot search here'
+          }
           {...rest}
         />
       </SearchWrapper>
