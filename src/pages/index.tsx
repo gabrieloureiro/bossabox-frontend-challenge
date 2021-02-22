@@ -11,6 +11,7 @@ import { readMessage } from '@/store/modules/message/actions'
 
 import { GlobalStateInterface } from '@/store/modules/rootReducer'
 import { ToolsInterface } from '@/models/tools'
+import { MessageInterface } from '@/models/message'
 
 import selectColor from '@/utils/selectColor'
 
@@ -20,6 +21,7 @@ import Loader from '@/components/Loader'
 import Tag from '@/components/Tag'
 import Switch from '@/components/Switch'
 import ModalDeleteTools from '@/components/ModalDeleteTools'
+import BannerNotification from '@/components/BannerNotification'
 import { Row } from '@/components/Row'
 import { Fade } from 'react-reveal'
 
@@ -39,12 +41,14 @@ const Home: React.FC = () => {
   const dispatch = useDispatch()
   const [openModal, setOpenModal] = useState(false)
   const [openDeleteModal, setOpenDeleteModal] = useState(false)
+  const [openBanner, setOpenBanner] = useState(false)
+  const [closeBanner, setCloseBanner] = useState(false)
   const [currentTool, setCurrentTool] = useState<ToolsInterface>(
     {} as ToolsInterface
   )
   const [filterByTag, setFilterByTag] = useState(false)
   const { data } = useFetch<ToolsInterface[]>('tools')
-  const message = useSelector<GlobalStateInterface, string>(
+  const message = useSelector<GlobalStateInterface, MessageInterface>(
     state => state.message
   )
   const searchValue = useSelector<GlobalStateInterface, string>(state =>
@@ -61,6 +65,23 @@ const Home: React.FC = () => {
   )
 
   useEffect(() => {
+    if (message.title && !data) {
+      setOpenBanner(true)
+    }
+  }, [message, data])
+
+  useEffect(() => {
+    if (openBanner) {
+      setTimeout(() => {
+        setCloseBanner(true)
+        setTimeout(() => {
+          setOpenBanner(false)
+        }, 500)
+      }, 5000)
+    }
+  }, [openBanner])
+
+  useEffect(() => {
     if (data) {
       dispatch(readTools(data))
     }
@@ -71,7 +92,21 @@ const Home: React.FC = () => {
       await api.delete(`tools/${tool.id}`, { data: tool }).then(response => {
         if (response.status === 200) {
           dispatch(
-            readMessage(`The tool ${tool.title} was deleted with success`)
+            readMessage({
+              title: 'This was a complete success',
+              description: `The tool ${tool.title} was deleted with success.`,
+              bannerType: 'success',
+              status: response.status
+            })
+          )
+        } else {
+          dispatch(
+            readMessage({
+              title: 'An error just happened!',
+              description: `The tool ${tool.title} has  not been deleted.`,
+              bannerType: 'error',
+              status: response.status
+            })
           )
         }
       })
@@ -107,7 +142,7 @@ const Home: React.FC = () => {
         {tools?.map((item, index) => {
           return (
             <FullCardListItem key={`${item.id}_${index}`}>
-              <Fade delay={`${index}0`}>
+              <Fade delay={Number(`${index}0`)}>
                 <FullCard>
                   <Row justify="spaceBetween">
                     {item.link ? (
@@ -169,6 +204,15 @@ const Home: React.FC = () => {
             handleDeleteTool(currentTool)
             setOpenDeleteModal(false)
           }}
+        />
+      ) : null}
+      {openBanner ? (
+        <BannerNotification
+          className={closeBanner ? 'banner-opened' : ''}
+          title={message.title}
+          message={message.description}
+          bannerType={message.bannerType}
+          onClose={() => setOpenBanner(false)}
         />
       ) : null}
     </Layout>

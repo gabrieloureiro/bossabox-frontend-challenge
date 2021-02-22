@@ -13,7 +13,6 @@ export default createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     scroll-behavior: smooth !important;
     transition: color, background-color 0.5s ease-out;
-
   }
 
   button {
@@ -34,7 +33,7 @@ export default createGlobalStyle`
   }
 
   body {
-
+    overflow-x: hidden;
     background: ${props => props.theme.colors.darkWhite};
     font: normal normal normal 20px/26px Source Sans Pro;
     font-size: 20/26px;
@@ -91,6 +90,7 @@ export default createGlobalStyle`
   #__next {
     height: 100%;
 		min-height: -webkit-fill-available;
+    overflow-x: hidden;
 
     ::-webkit-scrollbar-track {
       background-color: transparent;

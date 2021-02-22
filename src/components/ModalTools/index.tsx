@@ -31,7 +31,23 @@ const ModalTools: React.FC<ModalToolsInterface> = ({
     async (tool: ToolsInterface) => {
       await api.post('tools', tool).then(response => {
         if (response.status === 201) {
-          dispatch(readMessage(`The tool ${tool.title} was created with success`))
+          dispatch(
+            readMessage({
+              title: 'This was a complete success',
+              description: `The tool ${tool.title} was created with success`,
+              bannerType: 'success',
+              status: response.status
+            })
+          )
+        } else {
+          dispatch(
+            readMessage({
+              title: 'An error just happened!',
+              description: `The tool ${tool.title} has  not been deleted.`,
+              bannerType: 'error',
+              status: response.status
+            })
+          )
         }
       })
       mutateGlobal('tools', false)
