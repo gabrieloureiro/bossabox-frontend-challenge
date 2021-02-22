@@ -19,13 +19,12 @@
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
 
 
 
-<!-- PROJECT LOGO -->
+<!-- PROJECT -->
 <br />
 <p align="center">
 
@@ -63,11 +62,7 @@
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgements">Acknowledgements</a></li>
   </ol>
 </details>
 
@@ -125,9 +120,10 @@ You need to install npm (to install yarn, hahaha)
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+* To add a tool, click on button 'Add Tool' and fill the fields
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+![image](https://user-images.githubusercontent.com/39869298/108784981-48d95180-754f-11eb-9954-277fa3bc0442.png)
+
 
 
 <!-- CONTACT -->
@@ -152,8 +148,6 @@ Email - [gabrieloureirof@gmail.com](mailto:gabrieloureirof@gmail.com)
 [stars-url]: https://github.com/gabrieloureiro/bossabox-frontend-challenge/stargazers
 [issues-shield]: https://img.shields.io/github/issues/gabrieloureiro/bossabox-frontend-challenge.svg?style=for-the-badge
 [issues-url]: https://github.com/gabrieloureiro/bossabox-frontend-challenge/issues
-[license-shield]: https://img.shields.io/github/license/gabrieloureiro/bossabox-frontend-challenge.svg?style=for-the-badge
-[license-url]: https://github.com/gabrieloureiro/bossabox-frontend-challenge/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/gabrieloureiro
 [product-screenshot]: images/screenshot.png
