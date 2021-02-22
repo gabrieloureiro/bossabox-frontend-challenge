@@ -13,6 +13,7 @@ export default createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     scroll-behavior: smooth !important;
     transition: color, background-color 0.5s ease-out;
+
   }
 
   button {
@@ -33,6 +34,7 @@ export default createGlobalStyle`
   }
 
   body {
+
     background: ${props => props.theme.colors.darkWhite};
     font: normal normal normal 20px/26px Source Sans Pro;
     font-size: 20/26px;
@@ -89,5 +91,20 @@ export default createGlobalStyle`
   #__next {
     height: 100%;
 		min-height: -webkit-fill-available;
+
+    ::-webkit-scrollbar-track {
+      background-color: transparent;
+      position: absolute;
+      opacity: 0.85;
+    }
+
+    ::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      background-color: #170C3A;
+    }
   }
 `

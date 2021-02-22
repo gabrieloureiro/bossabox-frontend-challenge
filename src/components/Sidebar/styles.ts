@@ -89,6 +89,8 @@ export const NavigationItem = styled.li`
 export const Tooltip = styled.div`
   position: absolute;
   top: 0;
+  width: 100px;
+  line-height: 20px;
   font-size: 14px;
   background: ${props => props.theme.colors.darkWhite};
   z-index: 10;
@@ -97,7 +99,7 @@ export const Tooltip = styled.div`
   border: 0.5px solid ${props => props.theme.colors.mostDarkestWhite};
   transition: 300ms linear;
   border-radius: 5px;
-  right: -40px;
+  left: 110px;
   top: -10px;
 
   &::before {

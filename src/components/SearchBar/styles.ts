@@ -22,6 +22,12 @@ export const StyledSearchbar = styled.input`
     width: 100%;
     min-width: 54px;
   }
+
+  @media screen and (max-width: 820px) {
+    &::placeholder {
+      font-size: 14px;
+    }
+  }
 `
 
 export const SearchWrapper = styled.div`

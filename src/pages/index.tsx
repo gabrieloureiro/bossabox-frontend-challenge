@@ -14,6 +14,7 @@ import selectColor from '@/utils/selectColor'
 import Layout from '@/components/Layout'
 import ModalTools from '@/components/ModalTools'
 import Loader from '@/components/Loader'
+import Tag from '@/components/Tag'
 import { Row } from '@/components/Row'
 import { Fade } from 'react-reveal'
 
@@ -74,7 +75,7 @@ const Home: React.FC = () => {
 
   return (
     <Layout
-      title="VUTTR | Very Useful Tools to Remember"
+      title="Home | Very Useful Tools to Remember"
       highlightTitle="VUTTR"
       description="Get to know the best and most useful tools to development"
     >
@@ -121,15 +122,16 @@ const Home: React.FC = () => {
                   <Row wrap>
                     {item.tags.map((tag, index) => {
                       return (
-                        <CardTag
+                        <Tag
                           key={`${tag}_${index}`}
+                          textColor="#fff"
                           backgroundColor={`${selectColor(
                             Math.floor(Math.random() * 999),
                             10
                           )}`}
                         >
                           {tag}
-                        </CardTag>
+                        </Tag>
                       )
                     })}
                   </Row>

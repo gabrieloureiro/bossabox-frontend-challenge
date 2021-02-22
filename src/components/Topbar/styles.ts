@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-
 export const StyledBar = styled.div`
   display: flex;
   position: fixed;
