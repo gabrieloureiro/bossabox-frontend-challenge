@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
 
 import { stackes } from '@/models/stackes'
@@ -17,10 +17,25 @@ import {
   SmallText,
   Anchor
 } from '@/styles/pages/About'
+import BannerNotification from '@/components/BannerNotification'
 
 const Layout = dynamic(() => import('@/components/Layout'), { ssr: false })
 
 const Stackes: React.FC = () => {
+  const [openBanner, setOpenBanner] = useState(true)
+  const [closeBanner, setCloseBanner] = useState(false)
+
+  useEffect(() => {
+    if (openBanner) {
+      setTimeout(() => {
+        setCloseBanner(true)
+        setTimeout(() => {
+          setOpenBanner(false)
+        }, 500)
+      }, 5000)
+    }
+  }, [openBanner])
+
   return (
     <Layout
       title="About me | Gabriel Loureiro"
@@ -31,20 +46,20 @@ const Stackes: React.FC = () => {
         <Fade>
           <Image src="/images/gl-@2x.jpg" alt="avatar-stackes" />
         </Fade>
-        <Fade delay={200}>
+        <Fade delay={50}>
           <LargeText>Gabriel Loureiro</LargeText>
         </Fade>
-        <Fade delay={500}>
+        <Fade delay={100}>
           <MediumText
             style={{ color: '#ccc', marginBottom: '0', fontSize: '20px' }}
           >
             Frontend Developer
           </MediumText>
         </Fade>
-        <Fade delay={300}>
+        <Fade delay={150}>
           <SmallText>Brazilian, single, 22 years</SmallText>
         </Fade>
-        <Fade delay={400}>
+        <Fade delay={200}>
           <Row wrap justify="center" align="center">
             <Anchor
               aria-label="linkedin"
@@ -64,7 +79,7 @@ const Stackes: React.FC = () => {
             </Anchor>
           </Row>
         </Fade>
-        <Fade delay={500}>
+        <Fade delay={250}>
           <MediumText>I have knowledge in</MediumText>
         </Fade>
         <Row wrap justify="center" align="center" style={{ maxWidth: '500px' }}>
@@ -75,11 +90,20 @@ const Stackes: React.FC = () => {
                 textColor={item.textColor}
                 backgroundColor={item.backgroundColor}
               >
-                <Fade delay={`${index}00`}>{item.name}</Fade>
+                <Fade delay={Number(`${index}0`)}>{item.name}</Fade>
               </Tag>
             )
           })}
         </Row>
+        {openBanner ? (
+          <BannerNotification
+            className={closeBanner ? 'banner-opened' : ''}
+            title="Hey! Changing the scope."
+            bannerType="info"
+            onClose={() => setOpenBanner(false)}
+            message="This page is not part of the scope of the project."
+          />
+        ) : null}
       </Col>
     </Layout>
   )

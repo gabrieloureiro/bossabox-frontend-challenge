@@ -89,6 +89,7 @@ export const NavigationItem = styled.li`
 export const Tooltip = styled.div`
   position: absolute;
   top: 0;
+  visibility: hidden;
   width: 100px;
   line-height: 20px;
   font-size: 14px;

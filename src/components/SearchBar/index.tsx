@@ -18,6 +18,7 @@ const Searchbar: React.FC<SearchbarInterface> = ({
 }) => {
   const dispatch = useDispatch()
   const router = useRouter()
+
   const handleChange = (event: any) => {
     onChange(event.target.value)
     dispatch(readSearchValue(event.target.value))
