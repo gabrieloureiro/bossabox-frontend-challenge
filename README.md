@@ -34,14 +34,12 @@
   <p align="center">
       An incredible challenge made for Bossabox!
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
     <br />
-    <br />
-    <a href="https://github.com/othneildrew/Best-README-Template">View Demo</a>
+    <a href="https://bossabox-frontend-challenge.vercel.app/">View Demo</a>
     ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Report Bug</a>
+    <a href="https://github.com/gabrieloureiro/bossabox-frontend-challenge/issues">Report Bug</a>
     ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Request Feature</a>
+    <a href="https://github.com/gabrieloureiro/bossabox-frontend-challenge/issues">Request Feature</a>
   </p>
 </p>
 
@@ -92,7 +90,7 @@ This platform allows the user to create, delete and search for useful tools for 
 <!-- GETTING STARTED -->
 ## Getting Started
 
-If you do not want to run the project in the development environment, you can access it at [demo](https://bossabox-frontend-challenge.vercel.app/)
+If you do not want to run the project in the development environment, you can access it at [demo](https://bossabox-frontend-challenge.vercel.app/).
 
 ### Prerequisites
 
@@ -104,9 +102,9 @@ You need to install npm (to install yarn, hahaha)
   ```
 
 * yarn
-```sh
+  ```sh
   npm install -g yarn
-```
+  ```
 
 ### Installation
 
@@ -136,7 +134,13 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 ## Contact
 
 Linkedin - [gabrieloureiro](https://linkedin.com/in/gabrieloureiro)
+
+
 Email - [gabrieloureirof@gmail.com](mailto:gabrieloureirof@gmail.com)
+
+
+![image](https://user-images.githubusercontent.com/39869298/108784490-475b5980-754e-11eb-8ddd-059aebfac5af.png)
+
 
 
 <!-- ACKNOWLEDGEMENTS -->
@@ -159,16 +163,16 @@ Email - [gabrieloureirof@gmail.com](mailto:gabrieloureirof@gmail.com)
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
-[contributors-url]: https://github.com/othneildrew/Best-README-Template/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
-[forks-url]: https://github.com/othneildrew/Best-README-Template/network/members
-[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
-[stars-url]: https://github.com/othneildrew/Best-README-Template/stargazers
-[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
-[issues-url]: https://github.com/othneildrew/Best-README-Template/issues
-[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
-[license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
+[contributors-shield]: https://img.shields.io/github/contributors/gabrieloureiro/bossabox-frontend-challenge.svg?style=for-the-badge
+[contributors-url]: https://github.com/gabrieloureiro/bossabox-frontend-challenge/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/gabrieloureiro/bossabox-frontend-challenge.svg?style=for-the-badge
+[forks-url]: https://github.com/gabrieloureiro/bossabox-frontend-challenge/network/members
+[stars-shield]: https://img.shields.io/github/stars/gabrieloureiro/bossabox-frontend-challenge.svg?style=for-the-badge
+[stars-url]: https://github.com/gabrieloureiro/bossabox-frontend-challenge/stargazers
+[issues-shield]: https://img.shields.io/github/issues/gabrieloureiro/bossabox-frontend-challenge.svg?style=for-the-badge
+[issues-url]: https://github.com/gabrieloureiro/bossabox-frontend-challenge/issues
+[license-shield]: https://img.shields.io/github/license/gabrieloureiro/bossabox-frontend-challenge.svg?style=for-the-badge
+[license-url]: https://github.com/gabrieloureiro/bossabox-frontend-challenge/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/gabrieloureiro
 [product-screenshot]: images/screenshot.png
