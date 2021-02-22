@@ -31,10 +31,10 @@ const Stackes: React.FC = () => {
         <Fade>
           <Image src="/images/gl-@2x.jpg" alt="avatar-stackes" />
         </Fade>
-        <Fade delay={200}>
+        <Fade delay={100}>
           <LargeText>Gabriel Loureiro</LargeText>
         </Fade>
-        <Fade delay={500}>
+        <Fade delay={200}>
           <MediumText
             style={{ color: '#ccc', marginBottom: '0', fontSize: '20px' }}
           >

@@ -6,7 +6,10 @@ import api from '@/services/api'
 import { useFetch } from '@/hooks/useFetch'
 import { mutate as mutateGlobal } from 'swr'
 import { useSelector, useDispatch } from 'react-redux'
+import { readTools } from '@/store/modules/tools/actions'
+import { readMessage } from '@/store/modules/message/actions'
 
+import { GlobalStateInterface } from '@/store/modules/rootReducer'
 import { ToolsInterface } from '@/models/tools'
 
 import selectColor from '@/utils/selectColor'
@@ -15,6 +18,8 @@ import Layout from '@/components/Layout'
 import ModalTools from '@/components/ModalTools'
 import Loader from '@/components/Loader'
 import Tag from '@/components/Tag'
+import Switch from '@/components/Switch'
+import ModalDeleteTools from '@/components/ModalDeleteTools'
 import { Row } from '@/components/Row'
 import { Fade } from 'react-reveal'
 
@@ -25,15 +30,10 @@ import {
   CardAnchorTitle,
   CardTitle,
   CardDescription,
-  CardTag,
   ContainerTitle,
   AddButton,
   DeleteButton
 } from '@/styles/pages/Home'
-import { GlobalStateInterface } from '@/store/modules/rootReducer'
-import { readTools } from '@/store/modules/tools/actions'
-import Switch from '@/components/Switch'
-import ModalDeleteTools from '@/components/ModalDeleteTools'
 
 const Home: React.FC = () => {
   const dispatch = useDispatch()
@@ -44,7 +44,9 @@ const Home: React.FC = () => {
   )
   const [filterByTag, setFilterByTag] = useState(false)
   const { data } = useFetch<ToolsInterface[]>('tools')
-
+  const message = useSelector<GlobalStateInterface, string>(
+    state => state.message
+  )
   const searchValue = useSelector<GlobalStateInterface, string>(state =>
     state.search.toLowerCase()
   )
@@ -64,10 +66,19 @@ const Home: React.FC = () => {
     }
   }, [data, dispatch])
 
-  const handleDeleteTool = useCallback(async (tool: ToolsInterface) => {
-    await api.delete(`tools/${tool.id}`, { data: tool })
-    mutateGlobal('tools', false)
-  }, [])
+  const handleDeleteTool = useCallback(
+    async (tool: ToolsInterface) => {
+      await api.delete(`tools/${tool.id}`, { data: tool }).then(response => {
+        if (response.status === 200) {
+          dispatch(
+            readMessage(`The tool ${tool.title} was deleted with success`)
+          )
+        }
+      })
+      mutateGlobal('tools', false)
+    },
+    [data]
+  )
 
   if (!data) {
     return <Loader />

@@ -3,6 +3,7 @@
 import React, { useCallback, useRef } from 'react'
 
 import api from '@/services/api'
+import { useDispatch } from 'react-redux'
 import { useFetch } from '@/hooks/useFetch'
 import { mutate as mutateGlobal } from 'swr'
 
@@ -15,6 +16,7 @@ import Modal from '@/components/Modal'
 import Input from '@/components/Input'
 import { Row } from '@/components/Row'
 import { Form, CancelButton, ConfirmButton, InfoLabel } from './styles'
+import { readMessage } from '@/store/modules/message/actions'
 
 const ModalTools: React.FC<ModalToolsInterface> = ({
   title,
@@ -22,19 +24,19 @@ const ModalTools: React.FC<ModalToolsInterface> = ({
   open
 }) => {
   const formRef = useRef(null)
-
+  const dispatch = useDispatch()
   const { data } = useFetch<ToolsInterface[]>('tools')
 
   const handleAddTool = useCallback(
     async (tool: ToolsInterface) => {
       await api.post('tools', tool).then(response => {
         if (response.status === 201) {
-          console.log('remaining add notification banner')
+          dispatch(readMessage(`The tool ${tool.title} was created with success`))
         }
       })
       mutateGlobal('tools', false)
     },
-    [data]
+    [data, dispatch]
   )
 
   const handleSubmit = useCallback(

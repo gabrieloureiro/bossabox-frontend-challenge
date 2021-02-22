@@ -11,7 +11,7 @@ const AVAILABLE_ROUTES = [
   },
   {
     title: 'Send a mail',
-    path: 'mailto:gabrieloureirof@gmail.com',
+    path: 'mailto:gabrieloureirof@gmail.com?subject=Desafio Frontend Bossabox',
     icon: 'send'
   },
   {
