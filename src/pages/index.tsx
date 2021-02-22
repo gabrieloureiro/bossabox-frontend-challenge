@@ -79,6 +79,9 @@ const Home: React.FC = () => {
         }, 500)
       }, 5000)
     }
+    return () => {
+      setCloseBanner(false)
+    }
   }, [openBanner])
 
   useEffect(() => {

@@ -29,14 +29,11 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
-  </a>
 
-  <h3 align="center">Best-README-Template</h3>
+  <h3 align="center">Bossabox Frontend Challenge</h3>
 
   <p align="center">
-    An awesome README template to jumpstart your projects!
+      An incredible challenge made for Bossabox!
     <br />
     <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
     <br />
@@ -84,17 +81,7 @@
 
 ![image](https://user-images.githubusercontent.com/39869298/108779918-6950de00-7546-11eb-9c2c-86c76e010ff9.png)
 
-There are many great README templates available on GitHub, however, I didn't find one that really suit my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
-
-Here's why:
-* Your time should be focused on creating something amazing. A project that solves a problem and helps others
-* You shouldn't be doing the same tasks over and over like creating a README from scratch
-* You should element DRY principles to the rest of your life :smile:
-
-Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have have contributed to expanding this template!
-
-A list of commonly used resources that I find helpful are listed in the acknowledgements.
-
+This platform allows the user to create, delete and search for useful tools for a given scope, whatever it may be.
 ### Built With
 
 * [React](https://reactjs.org/)
@@ -110,26 +97,31 @@ If you do not want to run the project in the development environment, you can ac
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
+You need to install npm (to install yarn, hahaha)
+
 * npm
   ```sh
   npm install npm@latest -g
   ```
 
+* yarn
+```sh
+npm install -g yarn
+```
+
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Clone the repo
    ```sh
-   git clone https://github.com/your_username_/Project-Name.git
+   git clone https://github.com/gabrieloureiro/bossabox-frontend-challenge.git
    ```
-3. Install NPM packages
+2. Install YARN packages
    ```sh
-   npm install
+   yarn install --production=false
    ```
-4. Enter your API in `config.js`
+3. Run the command
    ```JS
-   const API_KEY = 'ENTER YOUR API';
+   yarn dev
    ```
 
 
@@ -210,5 +202,5 @@ Project Link: [https://github.com/your_username/repo_name](https://github.com/yo
 [license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
 [license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/othneildrew
+[linkedin-url]: https://linkedin.com/in/gabrieloureiro
 [product-screenshot]: images/screenshot.png

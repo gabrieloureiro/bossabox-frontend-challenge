@@ -25,7 +25,7 @@ const ModalTools: React.FC<ModalToolsInterface> = ({
 }) => {
   const formRef = useRef(null)
   const dispatch = useDispatch()
-  const { data } = useFetch<ToolsInterface[]>('tools')
+  const { data } = useFetch('tools')
 
   const handleAddTool = useCallback(
     async (tool: ToolsInterface) => {
