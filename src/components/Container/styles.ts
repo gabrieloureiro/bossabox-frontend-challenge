@@ -4,7 +4,7 @@ import { ContainerInterface } from './types'
 
 const fadeout = keyframes`
   from   { opacity: 1; visibility: visible; transform: translateX(0px) }
-  to { opacity: 0; visibility: hidden; transform: translateX(40px) }
+  to { opacity: 0; visibility: hidden; transform: translateX(12px) }
 `
 
 export const StyledContainer = styled.div`

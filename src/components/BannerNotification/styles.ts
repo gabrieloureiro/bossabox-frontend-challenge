@@ -8,7 +8,7 @@ import { Row as StyledRow } from '../Row'
 import { BannerNotificationInterface, HandleType } from './types'
 
 const fadein = keyframes`
-  from { opacity: 0; visibility: hidden; transform: translateX(40px) }
+  from { opacity: 0; visibility: hidden; transform: translateX(12px) }
   to   { opacity: 1; visibility: visible; transform: translateX(0px) }
 `
 
@@ -34,6 +34,7 @@ export const BannerHolder = styled.div`
   @media screen and (max-width: 542px) {
     max-width: calc(100% - 24px);
     right: 12px;
+    left: 12px;
     top: 12px;
     padding: 16px;
   }
@@ -59,7 +60,7 @@ export const Message = styled.span`
   letter-spacing: 0.36px;
 
   @media screen and (max-width: 542px) {
-    padding-left: 56px;
+    padding-left: 0px;
     text-align: center;
   }
 
@@ -84,7 +85,9 @@ export const Button = styled.button`
     handleType(props.bannerType).buttonColor};
 
   @media screen and (max-width: 542px) {
-    margin-left: 56px;
+    margin-left: 0px;
+    margin: 0 auto;
+    margin-top: 24px;
   }
 
   @media screen and (max-width: 351px) {
