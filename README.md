@@ -139,26 +139,7 @@ Linkedin - [gabrieloureiro](https://linkedin.com/in/gabrieloureiro)
 Email - [gabrieloureirof@gmail.com](mailto:gabrieloureirof@gmail.com)
 
 
-![image](https://user-images.githubusercontent.com/39869298/108784490-475b5980-754e-11eb-8ddd-059aebfac5af.png)
-
-
-
-<!-- ACKNOWLEDGEMENTS -->
-## Third-Part Packages
-* [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
-* [Img Shields](https://shields.io)
-* [Choose an Open Source License](https://choosealicense.com)
-* [GitHub Pages](https://pages.github.com)
-* [Animate.css](https://daneden.github.io/animate.css)
-* [Loaders.css](https://connoratherton.com/loaders)
-* [Slick Carousel](https://kenwheeler.github.io/slick)
-* [Smooth Scroll](https://github.com/cferdinandi/smooth-scroll)
-* [Sticky Kit](http://leafo.net/sticky-kit)
-* [JVectorMap](http://jvectormap.com)
-* [Font Awesome](https://fontawesome.com)
-
-
-
+![Stackes][stacks]
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
@@ -176,3 +157,4 @@ Email - [gabrieloureirof@gmail.com](mailto:gabrieloureirof@gmail.com)
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/gabrieloureiro
 [product-screenshot]: images/screenshot.png
+[stacks]: https://user-images.githubusercontent.com/39869298/108784490-475b5980-754e-11eb-8ddd-059aebfac5af.png
