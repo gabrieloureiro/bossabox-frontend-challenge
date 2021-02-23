@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -14,31 +15,18 @@ import {
   NavigationList,
   Tooltip
 } from './styles'
+import { useBanner } from '@/hooks/useBanner'
 
 const Sidebar: React.FC<SidebarInterface> = ({ collapsed }) => {
   const router = useRouter()
+  const { addBanner } = useBanner()
 
-  const handleIcon: React.FC<string> = (icon: string) => {
-    switch (icon) {
-      case 'roadmap': {
-        return <Roadmap />
-      }
-      case 'stackes': {
-        return <Stackes />
-      }
-      case 'send': {
-        return <Send />
-      }
-      case 'settings': {
-        return <Settings />
-      }
-      case 'help': {
-        return <Help />
-      }
-      default: {
-        return null
-      }
-    }
+  const icons = {
+    roadmap: <Roadmap />,
+    stackes: <Stackes />,
+    send: <Send />,
+    settings: <Settings />,
+    help: <Help />
   }
 
   return (
@@ -51,8 +39,17 @@ const Sidebar: React.FC<SidebarInterface> = ({ collapsed }) => {
                 <NavigationItem
                   activeRoute={router.pathname === item.path}
                   key={item.icon + index}
+                  onClick={() => {
+                    return !item.path
+                      ? addBanner({
+                        title: "This page doesn't exists",
+                        description: `The page ${item.title} doesn't a pathname, please contact the creator of platform.`,
+                        type: 'warning'
+                      })
+                      : {}
+                  }}
                 >
-                  {handleIcon(item.icon)}
+                  {icons[item.icon]}
                   {item.icon && item.title && <Tooltip>{item.title}</Tooltip>}
                 </NavigationItem>
               </Link>
