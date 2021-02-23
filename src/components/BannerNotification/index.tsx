@@ -3,6 +3,7 @@ import React from 'react'
 import { BannerNotificationInterface } from './types'
 
 import {
+  Container,
   BannerHolder,
   CheckCircleIcon,
   CloseIcon,
@@ -19,22 +20,22 @@ const BannerNotification: React.FC<BannerNotificationInterface> = ({
   title,
   onClose,
   message,
-  bannerType,
+  toast,
   ...rest
 }) => {
   const handleIcon = (type: string) => {
     switch (type) {
       case 'error': {
-        return <DangerIcon bannerType={type} />
+        return <DangerIcon toast={type} />
       }
       case 'warning': {
-        return <WarningIcon bannerType={type} />
+        return <WarningIcon toast={type} />
       }
       case 'success': {
-        return <CheckCircleIcon bannerType={type} />
+        return <CheckCircleIcon toast={type} />
       }
       case 'info': {
-        return <InfoIcon bannerType={type} />
+        return <InfoIcon toast={type} />
       }
       default: {
         return null
@@ -43,26 +44,48 @@ const BannerNotification: React.FC<BannerNotificationInterface> = ({
   }
 
   return (
-    <BannerHolder bannerType={bannerType} {...rest}>
-      <Row
-        wrap
-        justify="spaceBetween"
-        align="center"
-        style={{ marginBottom: '30px' }}
-      >
-        {handleIcon(bannerType)}
-        <Title>{title}</Title>
-        <CloseIcon bannerType={bannerType} onClick={onClose} />
-      </Row>
-      <Row wrap>
-        <Message>{message}</Message>
-      </Row>
-      <Row>
-        <Button bannerType={bannerType} onClick={onClose}>
-          OK
-        </Button>
-      </Row>
-    </BannerHolder>
+    <Container>
+      <BannerHolder toast={toast} {...rest}>
+        <Row
+          wrap
+          justify="spaceBetween"
+          align="center"
+          style={{ marginBottom: '30px' }}
+        >
+          {handleIcon(toast)}
+          <Title>{title}</Title>
+          <CloseIcon toast={toast} onClick={onClose} />
+        </Row>
+        <Row wrap>
+          <Message>{message}</Message>
+        </Row>
+        <Row>
+          <Button toast={toast} onClick={onClose}>
+            OK
+          </Button>
+        </Row>
+      </BannerHolder>
+      <BannerHolder toast={toast} {...rest}>
+        <Row
+          wrap
+          justify="spaceBetween"
+          align="center"
+          style={{ marginBottom: '30px' }}
+        >
+          {handleIcon(toast)}
+          <Title>{title}</Title>
+          <CloseIcon toast={toast} onClick={onClose} />
+        </Row>
+        <Row wrap>
+          <Message>{message}</Message>
+        </Row>
+        <Row>
+          <Button toast={toast} onClick={onClose}>
+            OK
+          </Button>
+        </Row>
+      </BannerHolder>
+    </Container>
   )
 }
 

@@ -5,7 +5,7 @@ export interface BannerNotificationInterface
   title?: string
   message?: string
   onClose?: () => void
-  bannerType?: string
+  toast?: string
 }
 
 export interface HandleType {
