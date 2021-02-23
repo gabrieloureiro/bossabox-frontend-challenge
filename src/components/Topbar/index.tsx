@@ -20,6 +20,7 @@ import {
   AlertNotifications
 } from './styles'
 import Searchbar from '../SearchBar'
+import { useBanner } from '@/hooks/useBanner'
 
 const Topbar: React.FC<TopbarInterface> = ({
   highlightTitle,
@@ -29,6 +30,8 @@ const Topbar: React.FC<TopbarInterface> = ({
   onChange,
   handleCollapsed
 }) => {
+  const { addBanner } = useBanner()
+
   return (
     <StyledBar>
       <LogoWrapper>
@@ -43,12 +46,40 @@ const Topbar: React.FC<TopbarInterface> = ({
         defaultValue={defaultValue}
         onChange={onChange}
       />
-      <UserDropdown>
+      <UserDropdown
+        onClick={() =>
+          addBanner({
+            title: "Ops! This doesn't work",
+            description:
+              "This component doesn't have a onClick event, please contact the creator of platform",
+            type: 'warning'
+          })
+        }
+      >
         <Username>Gabriel</Username>
         <Chevrondown />
       </UserDropdown>
-      <Avatar src="/images/gl.jpg" alt="avatar" />
-      <AlertNotifications />
+      <Avatar
+        src="/images/gl.jpg"
+        alt="avatar"
+        onClick={() =>
+          addBanner({
+            title: 'Hey! Do you like me? ;)',
+            description: 'Check the About me page and contact',
+            type: 'warning'
+          })
+        }
+      />
+      <AlertNotifications
+        onClick={() =>
+          addBanner({
+            title: 'Do you want see notifications?',
+            description:
+              "Sorry. This paltform it's ficticious, but, if you hire me, I do it for you",
+            type: 'warning'
+          })
+        }
+      />
     </StyledBar>
   )
 }

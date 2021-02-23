@@ -3,7 +3,6 @@
 import React, { useCallback, useRef } from 'react'
 
 import api from '@/services/api'
-import { useDispatch } from 'react-redux'
 import { useFetch } from '@/hooks/useFetch'
 import { mutate as mutateGlobal } from 'swr'
 
@@ -16,7 +15,7 @@ import Modal from '@/components/Modal'
 import Input from '@/components/Input'
 import { Row } from '@/components/Row'
 import { Form, CancelButton, ConfirmButton, InfoLabel } from './styles'
-import { readMessage } from '@/store/modules/message/actions'
+import { useBanner } from '@/hooks/useBanner'
 
 const ModalTools: React.FC<ModalToolsInterface> = ({
   title,
@@ -24,35 +23,29 @@ const ModalTools: React.FC<ModalToolsInterface> = ({
   open
 }) => {
   const formRef = useRef(null)
-  const dispatch = useDispatch()
+  const { addBanner } = useBanner()
   const { data } = useFetch('tools')
 
   const handleAddTool = useCallback(
     async (tool: ToolsInterface) => {
       await api.post('tools', tool).then(response => {
         if (response.status === 201) {
-          dispatch(
-            readMessage({
-              title: 'This was a complete success',
-              description: `The tool ${tool.title} was created with success`,
-              bannerType: 'success',
-              status: response.status
-            })
-          )
+          addBanner({
+            title: 'This was a complete success',
+            description: `The tool ${tool.title} was created with success`,
+            type: 'success'
+          })
         } else {
-          dispatch(
-            readMessage({
-              title: 'An error just happened!',
-              description: `The tool ${tool.title} has  not been deleted.`,
-              bannerType: 'error',
-              status: response.status
-            })
-          )
+          addBanner({
+            title: 'An error just happened!',
+            description: `The tool ${tool.title} has  not been deleted.`,
+            type: 'error'
+          })
         }
       })
       mutateGlobal('tools', false)
     },
-    [data, dispatch]
+    [data]
   )
 
   const handleSubmit = useCallback(

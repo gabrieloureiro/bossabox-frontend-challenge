@@ -51,6 +51,30 @@
         "wow",
         "such"
       ]
+    },
+    {
+      "title": "Data management analyst",
+      "description": "Banco de dados",
+      "link": "https://www.react-reveal.com/examples/specials/headshake/3",
+      "tags": [
+        "teste1",
+        "teste2",
+        "teste3",
+        "teste5"
+      ],
+      "id": 6
+    },
+    {
+      "title": "SmallLineChart json",
+      "description": "Banco de dados",
+      "link": "https://www.react-reveal.com/examples/specials/headshake/3",
+      "tags": [
+        "teste1",
+        "teste2",
+        "teste3",
+        "teste5"
+      ],
+      "id": 7
     }
   ]
 }

@@ -1,41 +1,49 @@
 import React, { createContext, useContext, useCallback, useState } from 'react'
 
-import BannerNotification from '@/components/BannerNotification'
+import { v4 as uuid } from 'uuid'
 
+import BannerContainer from '@/components/BannerContainer'
+export interface BannerMessages {
+  id: string
+  type?: 'success' | 'error' | 'info' | 'warning' | 'neutral'
+  title: string
+  description: string
+}
 interface BannerContextData {
-  addBanner(): void
-  removeBanner(): void
+  addBanner(message: Omit<BannerMessages, 'id'>): void
+  removeBanner(id: string): void
 }
 
 const BannerContext = createContext<BannerContextData>({} as BannerContextData)
 
 const BannerProvider: React.FC = ({ children }) => {
-  // const
+  const [messages, setMessages] = useState<BannerMessages[]>([])
 
-  const addBanner = () =>
-    useCallback(() => {
-      console.log(1)
-    }, [])
+  const addBanner = ({
+    type,
+    title,
+    description
+  }: Omit<BannerMessages, 'id'>) => {
+    const id = uuid()
 
-  const removeBanner = () =>
-    useCallback(() => {
-      console.log(2)
-    }, [])
+    const banner = {
+      id,
+      type,
+      title,
+      description
+    }
+
+    setMessages(state => [...state, banner])
+  }
+
+  const removeBanner = useCallback((id: string) => {
+    setMessages(state => state.filter(message => message.id !== id))
+  }, [])
 
   return (
     <BannerContext.Provider value={{ addBanner, removeBanner }}>
       {children}
-      <BannerNotification
-        toast="warning"
-        title="This was a complete success"
-        message="The tool AAAAAAAA was deleted with success."
-      />
-
-      <BannerNotification
-        toast="error"
-        title="This was a complete success"
-        message="The tool AAAAAAAA was deleted with success."
-      />
+      <BannerContainer messages={messages} />
     </BannerContext.Provider>
   )
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import dynamic from 'next/dynamic'
 
 import { stackes } from '@/models/stackes'
@@ -17,18 +17,19 @@ import {
   SmallText,
   Anchor
 } from '@/styles/pages/About'
-import BannerNotification from '@/components/BannerNotification'
 import { useBanner } from '@/hooks/useBanner'
 
 const Layout = dynamic(() => import('@/components/Layout'), { ssr: false })
 
 const Stackes: React.FC = () => {
-  // const [openBanner, setOpenBanner] = useState(true)
-  // const [closeBanner, setCloseBanner] = useState(false)
   const { addBanner } = useBanner()
 
   useEffect(() => {
-    addBanner()
+    addBanner({
+      title: 'Hey, changing the scope!',
+      description: 'This page is not part of the scope of the project.',
+      type: 'info'
+    })
   }, [])
 
   return (
@@ -90,14 +91,6 @@ const Stackes: React.FC = () => {
             )
           })}
         </Row>
-        {/* <BannerNotification
-            className={closeBanner ? 'banner-opened' : ''}
-            title="Hey! Changing the scope."
-            bannerType="info"
-            onClose={() => setOpenBanner(false)}
-            message="This page is not part of the scope of the project."
-          />
-        ) : null} */}
       </Col>
     </Layout>
   )

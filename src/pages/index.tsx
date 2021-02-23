@@ -7,11 +7,9 @@ import { useFetch } from '@/hooks/useFetch'
 import { mutate as mutateGlobal } from 'swr'
 import { useSelector, useDispatch } from 'react-redux'
 import { readTools } from '@/store/modules/tools/actions'
-import { readMessage } from '@/store/modules/message/actions'
 
 import { GlobalStateInterface } from '@/store/modules/rootReducer'
 import { ToolsInterface } from '@/models/tools'
-import { MessageInterface } from '@/models/message'
 
 import selectColor from '@/utils/selectColor'
 
@@ -21,7 +19,6 @@ import Loader from '@/components/Loader'
 import Tag from '@/components/Tag'
 import Switch from '@/components/Switch'
 import ModalDeleteTools from '@/components/ModalDeleteTools'
-import BannerNotification from '@/components/BannerNotification'
 import { Row } from '@/components/Row'
 import { Fade } from 'react-reveal'
 
@@ -36,21 +33,18 @@ import {
   AddButton,
   DeleteButton
 } from '@/styles/pages/Home'
+import { useBanner } from '@/hooks/useBanner'
 
 const Home: React.FC = () => {
   const dispatch = useDispatch()
   const { data } = useFetch('tools')
   const [openModal, setOpenModal] = useState(false)
   const [openDeleteModal, setOpenDeleteModal] = useState(false)
-  const [openBanner, setOpenBanner] = useState(false)
-  const [closeBanner, setCloseBanner] = useState(false)
   const [currentTool, setCurrentTool] = useState<ToolsInterface>(
     {} as ToolsInterface
   )
   const [filterByTag, setFilterByTag] = useState(false)
-  const message = useSelector<GlobalStateInterface, MessageInterface>(
-    state => state.message
-  )
+  const { addBanner } = useBanner()
   const searchValue = useSelector<GlobalStateInterface, string>(state =>
     state.search.toLowerCase()
   )
@@ -65,26 +59,6 @@ const Home: React.FC = () => {
   )
 
   useEffect(() => {
-    if (message.title && !data) {
-      setOpenBanner(true)
-    }
-  }, [message, data])
-
-  useEffect(() => {
-    if (openBanner) {
-      setTimeout(() => {
-        setCloseBanner(true)
-        setTimeout(() => {
-          setOpenBanner(false)
-        }, 500)
-      }, 5000)
-    }
-    return () => {
-      setCloseBanner(false)
-    }
-  }, [openBanner])
-
-  useEffect(() => {
     if (data) {
       dispatch(readTools(data))
     }
@@ -94,23 +68,17 @@ const Home: React.FC = () => {
     async (tool: ToolsInterface) => {
       await api.delete(`tools/${tool.id}`, { data: tool }).then(response => {
         if (response.status === 200) {
-          dispatch(
-            readMessage({
-              title: 'This was a complete success',
-              description: `The tool ${tool.title} was deleted with success.`,
-              bannerType: 'success',
-              status: response.status
-            })
-          )
+          addBanner({
+            title: 'This was a complete success',
+            description: `The tool ${tool.title} was deleted with success.`,
+            type: 'success'
+          })
         } else {
-          dispatch(
-            readMessage({
-              title: 'An error just happened!',
-              description: `The tool ${tool.title} has  not been deleted.`,
-              bannerType: 'error',
-              status: response.status
-            })
-          )
+          addBanner({
+            title: 'An error just happened!',
+            description: `The tool ${tool.title} has  not been deleted.`,
+            type: 'error'
+          })
         }
       })
       mutateGlobal('tools', false)
@@ -207,15 +175,6 @@ const Home: React.FC = () => {
             handleDeleteTool(currentTool)
             setOpenDeleteModal(false)
           }}
-        />
-      ) : null}
-      {openBanner ? (
-        <BannerNotification
-          className={closeBanner ? 'banner-opened' : ''}
-          title={message.title}
-          message={message.description}
-          bannerType={message.bannerType}
-          onClose={() => setOpenBanner(false)}
         />
       ) : null}
     </Layout>
