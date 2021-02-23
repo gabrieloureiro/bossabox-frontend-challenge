@@ -9,7 +9,9 @@
 <!-- PROJECT -->
 <br />
 <p align="center">
-
+  
+  <img src="/public/favicon.ico" alt="Logo" width="80" height="80">
+  
   <h3 align="center">Bossabox Frontend Challenge</h3>
 
   <p align="center">
