@@ -106,7 +106,7 @@ You need to install npm (to install yarn, hahaha)
 
 ![image](https://user-images.githubusercontent.com/39869298/108784981-48d95180-754f-11eb-9954-277fa3bc0442.png)
 
-* To delele a tool, click on the button <strong>'trash'</strong> in the tool card and confirm your action
+* To delele a tool, click on the button <strong>'Bin'</strong> in the tool card and confirm your action
 
 ![image](https://user-images.githubusercontent.com/39869298/108785197-af5e6f80-754f-11eb-84ad-a1b1380473b0.png)
 
@@ -116,7 +116,7 @@ You need to install npm (to install yarn, hahaha)
 
 ![image](https://user-images.githubusercontent.com/39869298/108785449-30b60200-7550-11eb-97bf-8cf651653883.png)
 
-You can also trigger the switch to search for tags only
+* You can also trigger the switch to search for tags only
 
 ![image](https://user-images.githubusercontent.com/39869298/108785559-6ce96280-7550-11eb-8dae-0a447507afe3.png)
 
