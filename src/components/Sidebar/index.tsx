@@ -29,6 +29,17 @@ const Sidebar: React.FC<SidebarInterface> = ({ collapsed }) => {
     help: <Help />
   }
 
+  const onClickAtNavigationItem = (path: string): void => {
+    if (!path) {
+      addBanner({
+        title: "This page doesn't exists",
+        description: `The page ${path} doesn't a pathname, please contact the creator of platform.`,
+        type: 'warning'
+      })
+    }
+    return null
+  }
+
   return (
     <StyledSidebar collapsed={!collapsed}>
       <Navigation>
@@ -37,17 +48,9 @@ const Sidebar: React.FC<SidebarInterface> = ({ collapsed }) => {
             return (
               <Link key={item.icon + index} href={item.path}>
                 <NavigationItem
-                  activeRoute={router.pathname === item.path}
                   key={item.icon + index}
-                  onClick={() => {
-                    return !item.path
-                      ? addBanner({
-                        title: "This page doesn't exists",
-                        description: `The page ${item.title} doesn't a pathname, please contact the creator of platform.`,
-                        type: 'warning'
-                      })
-                      : {}
-                  }}
+                  activeRoute={router.pathname === item.path}
+                  onClick={() => onClickAtNavigationItem(item.path)}
                 >
                   {icons[item.icon]}
                   {item.icon && item.title && <Tooltip>{item.title}</Tooltip>}
